@@ -11,12 +11,26 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background: #0f0f0f;
-      color: white;
-      text-align: center;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
-      padding: 40px;
+      padding: 40px 20px 20px 20px;
+      text-align: center;
+      background: #1a1a1a;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+
+    header p {
+      font-size: 1.1em;
+      color: #cccccc;
     }
 
     .grid {
@@ -26,6 +40,7 @@
       padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
+      flex-grow: 1;
     }
 
     .card {
@@ -35,6 +50,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,255,204,0.3);
     }
 
     .card img {
@@ -44,8 +65,18 @@
       margin: 10px 0;
     }
 
+    .card h3 {
+      margin: 10px 0 5px 0;
+    }
+
+    .card p.description {
+      font-size: 0.95em;
+      color: #cccccc;
+      margin-bottom: 10px;
+    }
+
     .btn {
-      margin-top: 10px;
+      margin-top: auto;
       padding: 10px 20px;
       background: #00ffcc;
       color: black;
@@ -58,6 +89,28 @@
     .btn:hover {
       background: #00e6b8;
     }
+
+    footer {
+      background: #1a1a1a;
+      text-align: center;
+      padding: 40px 20px 20px 20px;
+      color: #cccccc;
+    }
+
+    footer h4 {
+      margin-bottom: 10px;
+    }
+
+    footer p, footer a {
+      color: #cccccc;
+      text-decoration: none;
+      font-size: 0.95em;
+    }
+
+    footer a:hover {
+      color: #00ffcc;
+    }
+
   </style>
 </head>
 
@@ -71,23 +124,30 @@
 <div class="grid">
   <div class="card">
     <h3>MakerPlot</h3>
-    <p>Fully 3D Printable Arduino CNC Plotter DIY KIT STL</p>
-    <img src="images/makerplot.png" alt="MakerPlot 3D Printable CNC">
+    <p class="description">
+      Fully 3D Printable Arduino CNC Plotter DIY KIT. Includes STL files for all parts, designed for hobbyists and makers to assemble a desktop plotter for drawing and engraving.
+    </p>
+    <img src="images/makerplot.jpg" alt="MakerPlot 3D Printable CNC" loading="lazy">
     <div class="btn" onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
       Buy - €25
     </div>
   </div>
 
-  <!-- Puoi duplicare questa card per altri prodotti -->
-  <!-- Esempio: 
-  <div class="card">
-    <h3>NomeProdotto</h3>
-    <p>Descrizione del prodotto</p>
-    <img src="images/nomeprodotto.jpg" alt="NomeProdotto">
-    <div class="btn" onclick="buy('price_ID_Stripe')">Buy - €XX</div>
-  </div>
-  -->
+  <!-- Puoi duplicare altre card per altri prodotti -->
 </div>
+
+<footer>
+  <h4>About Me</h4>
+  <p>
+    Hi! I’m an engineer and maker passionate about 3D printing and Arduino projects. I create digital files for innovative DIY machines, puzzles, and tools for makers like you.
+  </p>
+  <h4>Contact</h4>
+  <p>Email: <a href="mailto:printpeakcrafts@gmail.com">printpeakcrafts@gmail.com</a></p>
+  <p>Follow me: 
+    <a href="https://twitter.com/tuonome" target="_blank">Twitter</a> | 
+    <a href="https://instagram.com/tuonome" target="_blank">Instagram</a>
+  </p>
+</footer>
 
 <script>
 const stripe = Stripe("pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9");
