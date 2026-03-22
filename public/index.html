@@ -54,14 +54,14 @@
   <div class="card">
     <h3>Skull Dice Tower</h3>
     <p>Self-reloading dice tower STL</p>
-    <div class="btn" onclick="buy('price_1TDUvBAj3QOHBp3qehrJ0iIE')">
+    <div class="btn" onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
       Buy - €10
     </div>
   </div>
 </div>
 
 <script>
-const stripe = Stripe("pk_live_51TDTbqAj3QOHBp3q4Ds9xcM7kUYHjTLybG08WAuerhQcHzp3Q1qD7QnYHEpDB7qbOWCyG3MRm7h5ZmdZnUxph8UD00uUmZ0FD4");
+const stripe = Stripe("pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9");
 
 function buy(priceId) {
   fetch("/create-checkout-session", {
