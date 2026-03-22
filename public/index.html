@@ -9,7 +9,7 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       background: #0f0f0f;
       color: white;
       text-align: center;
@@ -24,21 +24,39 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .card {
       background: #1a1a1a;
       padding: 20px;
       border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      margin: 10px 0;
     }
 
     .btn {
       margin-top: 10px;
-      padding: 10px;
+      padding: 10px 20px;
       background: #00ffcc;
       color: black;
       cursor: pointer;
       border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #00e6b8;
     }
   </style>
 </head>
@@ -53,11 +71,22 @@
 <div class="grid">
   <div class="card">
     <h3>MakerPlot</h3>
-    <p>: Fully 3D Printable Arduino CNC Plotter DIY KIT STL</p>
+    <p>Fully 3D Printable Arduino CNC Plotter DIY KIT STL</p>
+    <img src="images/makerplot.png" alt="MakerPlot 3D Printable CNC">
     <div class="btn" onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
       Buy - €25
     </div>
   </div>
+
+  <!-- Puoi duplicare questa card per altri prodotti -->
+  <!-- Esempio: 
+  <div class="card">
+    <h3>NomeProdotto</h3>
+    <p>Descrizione del prodotto</p>
+    <img src="images/nomeprodotto.jpg" alt="NomeProdotto">
+    <div class="btn" onclick="buy('price_ID_Stripe')">Buy - €XX</div>
+  </div>
+  -->
 </div>
 
 <script>
