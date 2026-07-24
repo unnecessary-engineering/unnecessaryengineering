@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unnecessary Engineering</title>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<style>
+
+body {
+
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f0f0f;
+    color:white;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+
+/* HEADER */
+
+header {
+
+    padding:40px 20px 20px;
+    text-align:center;
+    background:#1a1a1a;
+
+}
+
+
+header h1 {
+
+    margin-bottom:10px;
+    font-size:2.5em;
+
+}
+
+
+header p {
+
+    color:#cccccc;
+    font-size:1.1em;
+
+}
+
+
+
+/* PRODUCTS */
+
+.grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,350px));
+
+    justify-content:center;
+
+    gap:25px;
+
+    padding:30px 20px;
+
+    max-width:1200px;
+
+    width:100%;
+
+    margin:auto;
+
+    flex-grow:1;
+
+}
+
+
+
+
+.product-link {
+
+    text-decoration:none;
+
+    color:white;
+
+    width:100%;
+
+}
+
+
+
+
+.card {
+
+    background:#1a1a1a;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    height:100%;
+
+    transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+
+}
+
+
+
+
+.card:hover {
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 10px 20px rgba(0,255,204,0.3);
+
+}
+
+
+
+.card img {
+
+    width:100%;
+
+    max-width:500px;
+
+    border-radius:10px;
+
+    margin:15px 0;
+
+}
+
+
+
+.card h3 {
+
+    margin:10px 0;
+
+    font-size:1.4em;
+
+}
+
+
+
+.description {
+
+    color:#cccccc;
+
+    text-align:center;
+
+    line-height:1.5;
+
+    font-size:0.95em;
+
+    flex-grow:1;
+
+}
+
+
+
+/* BUTTON */
+
+.btn {
+
+    margin-top:20px;
+
+    padding:12px 25px;
+
+    background:#00ffcc;
+
+    color:black;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+.btn:hover {
+
+    background:#00e6b8;
+
+}
+
+
+
+/* FOOTER */
+
+footer {
+
+    background:#1a1a1a;
+
+    text-align:center;
+
+    padding:40px 20px 20px;
+
+    color:#cccccc;
+
+}
+
+
+
+footer a {
+
+    color:#cccccc;
+
+    text-decoration:none;
+
+}
+
+
+footer a:hover {
+
+    color:#00ffcc;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+
+
+<body>
+
+
+
+<header>
+
+<h1>
+Unnecessary Engineering
+</h1>
+
+<p>
+Creative 3D Printed Machines & Arduino Projects
+</p>
+
+</header>
+
+
+
+
+
+<div class="grid">
+
+
+
+
+
+<!-- ========================= -->
+<!-- MAKERPLOT -->
+<!-- ========================= -->
+
+
+<div class="card">
+
+
+<a href="prodotti/makerplot.html"
+class="product-link">
+
+
+<h3>
+MakerPlot
+</h3>
+
+
+<img src="images/makerplot.png"
+alt="MakerPlot CNC Plotter"
+loading="lazy">
+
+
+
+<p class="description">
+
+Fully 3D Printable Arduino CNC Plotter DIY KIT.
+
+Includes STL files for all parts, designed for
+hobbyists and makers to assemble their own
+desktop CNC machine.
+
+</p>
+
+
+</a>
+
+
+
+<div class="btn"
+onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
+
+Buy - €25
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ========================= -->
+<!-- MAKERPLOT 2.0 -->
+<!-- ========================= -->
+
+
+<div class="card">
+
+
+<a href="prodotti/makerplot 2.0.html"
+class="product-link">
+
+
+<h3>
+MakerPlot 2.0
+</h3>
+
+
+<img src="images/makerplot 2.0.png"
+alt="MakerPlot CNC Plotter"
+loading="lazy">
+
+
+
+<p class="description">
+
+Fully 3D Printable Arduino CNC Plotter DIY KIT.
+
+Includes STL files for all parts, designed for
+hobbyists and makers to assemble their own
+desktop CNC machine.
+
+</p>
+
+
+</a>
+
+
+
+<div class="btn"
+onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
+
+Buy - €25
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ========================= -->
+<!-- NUOVO PRODOTTO TEMPLATE -->
+<!-- COPIA QUESTO BLOCCO -->
+<!-- ========================= -->
+
+<!--
+
+
+<div class="card">
+
+
+<a href="prodotti/NOMEFILE.html"
+class="product-link">
+
+
+<h3>
+Nome Prodotto
+</h3>
+
+
+<img src="images/NOMEIMMAGINE.png"
+alt="Nome Prodotto"
+loading="lazy">
+
+
+
+<p class="description">
+
+Descrizione breve del prodotto.
+
+</p>
+
+
+</a>
+
+
+
+<div class="btn"
+onclick="buy('price_STRIPE_ID')">
+
+Buy - €XX
+
+</div>
+
+
+</div>
+
+
+-->
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<footer>
+
+
+<h4>
+About Me
+</h4>
+
+
+<p>
+
+Hi! I’m an engineer and maker passionate about
+3D printing and Arduino projects.
+
+I create digital files for innovative DIY machines,
+puzzles, and tools for makers like you.
+
+</p>
+
+
+
+<h4>
+Contact
+</h4>
+
+
+<p>
+
+Email:
+
+<a href="mailto:printpeakscrafts@gmail.com">
+
+printpeakscrafts@gmail.com
+
+</a>
+
+</p>
+
+
+
+<p>
+
+Follow me:
+
+<a href="https://www.kickstarter.com/profile/sc96"
+target="_blank">
+
+Kickstarter
+
+</a>
+
+|
+
+<a href="https://instagram.com/unnecessary_engineering"
+target="_blank">
+
+Instagram
+
+</a>
+
+
+</p>
+
+
+
+</footer>
+
+
+
+
+
+
+
+
+<script>
+
+
+const stripe = Stripe(
+"pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9"
+);
+
+
+
+function buy(priceId){
+
+
+fetch("/create-checkout-session", {
+
+
+method:"POST",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+
+},
+
+
+body:JSON.stringify({
+
+priceId:priceId
+
+})
+
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+stripe.redirectToCheckout({
+
+sessionId:data.id
+
+});
+
+
+});
+
+
+}
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

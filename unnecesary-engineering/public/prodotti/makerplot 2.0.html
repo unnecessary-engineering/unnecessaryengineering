@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MakerPlot - Unnecessary Engineering</title>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<style>
+
+body {
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f0f0f;
+    color:white;
+}
+
+
+/* HEADER */
+
+header {
+
+    background:#1a1a1a;
+    text-align:center;
+    padding:45px 20px;
+
+}
+
+
+header h1 {
+
+    font-size:2.8em;
+    margin:0 0 10px;
+
+}
+
+
+header p {
+
+    color:#cccccc;
+    font-size:1.2em;
+
+}
+
+
+
+/* MAIN */
+
+.container {
+
+    max-width:1000px;
+    margin:auto;
+    padding:30px 20px;
+
+}
+
+
+
+.hero {
+
+    width:100%;
+    border-radius:15px;
+    margin-bottom:40px;
+
+}
+
+
+
+h2 {
+
+    color:#00ffcc;
+    margin-top:50px;
+
+}
+
+
+
+.text-block {
+
+    margin:30px 0 50px;
+
+}
+
+
+
+.text-block p {
+
+    color:#cccccc;
+    font-size:1.1em;
+    line-height:1.7;
+
+}
+
+
+
+
+.content-image {
+
+    width:100%;
+    max-width:850px;
+    display:block;
+    margin:35px auto;
+    border-radius:15px;
+
+}
+
+
+
+
+/* FEATURES */
+
+
+.features {
+
+    background:#1a1a1a;
+    padding:25px;
+    border-radius:15px;
+
+}
+
+
+.features li {
+
+    color:#cccccc;
+    margin:12px 0;
+    font-size:1.05em;
+
+}
+
+
+
+/* GALLERY */
+
+
+.gallery {
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+
+}
+
+
+
+.gallery img {
+
+    width:100%;
+    border-radius:12px;
+
+}
+
+
+
+/* BUY BOX */
+
+
+.buy-box {
+
+    margin-top:60px;
+    background:#1a1a1a;
+    padding:35px;
+    text-align:center;
+    border-radius:15px;
+
+}
+
+
+
+.price {
+
+    font-size:2.5em;
+    font-weight:bold;
+    margin-bottom:20px;
+
+}
+
+
+
+.btn {
+
+    display:inline-block;
+    background:#00ffcc;
+    color:black;
+    padding:15px 35px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+
+}
+
+
+.btn:hover {
+
+    background:#00e6b8;
+
+}
+
+
+
+
+.back {
+
+    display:block;
+    text-align:center;
+    margin:40px;
+    color:#00ffcc;
+    text-decoration:none;
+
+}
+
+
+
+/* FOOTER */
+
+
+footer {
+
+    background:#1a1a1a;
+    text-align:center;
+    padding:30px;
+    color:#aaa;
+
+}
+
+
+
+@media(max-width:600px){
+
+header h1 {
+
+    font-size:2em;
+
+}
+
+
+.container {
+
+    padding:20px;
+
+}
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<header>
+
+<h1>MakerPlot</h1>
+
+<p>
+Fully 3D Printable Arduino CNC Plotter DIY KIT
+</p>
+
+</header>
+
+
+
+
+<div class="container">
+
+
+
+<!-- MAIN IMAGE -->
+
+
+<img class="hero"
+src="../images/makerplot 2.0.png"
+alt="MakerPlot CNC Plotter">
+
+
+
+
+
+<!-- INTRO -->
+
+
+<div class="text-block">
+
+
+<h2>Bring CNC technology to your desk</h2>
+
+
+<p>
+
+MakerPlot is a fully 3D printable Arduino CNC plotter designed for makers,
+students and electronics enthusiasts.
+
+This project combines 3D printing, electronics and programming into a
+compact desktop machine that you can build yourself.
+
+The goal is simple: create an affordable and educational CNC platform
+that lets anyone experiment with digital fabrication.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<img class="content-image"
+src="../images/makerplot 2.0_1.png"
+alt="MakerPlot assembly">
+
+
+
+
+
+<!-- BUILD -->
+
+
+<div class="text-block">
+
+
+<h2>Build your own machine</h2>
+
+
+<p>
+
+All mechanical parts are designed to be printed with a standard FDM 3D printer.
+
+The design focuses on simplicity, reliability and easy assembly.
+
+The downloadable package contains the STL files needed to print the complete
+structure of MakerPlot.
+
+No expensive equipment is required: just print, assemble and start creating.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<img class="content-image"
+src="../images/makerplot 2.0_2.png"
+alt="MakerPlot details">
+
+
+
+
+
+
+<!-- USES -->
+
+
+<div class="text-block">
+
+
+<h2>What can you create?</h2>
+
+
+<p>
+
+MakerPlot can be used for many creative experiments:
+
+<br><br>
+
+✏️ Automatic drawings and patterns
+
+<br>
+
+🎨 Custom artwork
+
+<br>
+
+🔧 Learning CNC principles
+
+<br>
+
+💻 Arduino motion control experiments
+
+<br>
+
+🖨️ Combining 3D printing and electronics
+
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<img class="content-image"
+src="../images/makerplot 2.0_3.png"
+alt="MakerPlot final project">
+
+
+
+
+
+
+<!-- INCLUDED -->
+
+
+<h2>Digital Package Includes</h2>
+
+
+<div class="features">
+
+
+<ul>
+
+<li>Complete STL files for 3D printing</li>
+
+<li>Complete mechanical design files</li>
+
+<li>Assembly instructions</li>
+
+<li>Arduino compatible design</li>
+
+<li>Future project updates</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+<!-- REQUIREMENTS -->
+
+
+<h2>What you need</h2>
+
+
+<div class="features">
+
+
+<ul>
+
+<li>3D printer</li>
+
+<li>Arduino board</li>
+
+<li>Stepper motors</li>
+
+<li>Belts and pulleys</li>
+
+<li>Basic screws and hardware</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- GALLERY -->
+
+
+<h2>Gallery</h2>
+
+
+<div class="gallery">
+
+
+<img src="../images/makerplot_1.png">
+
+<img src="../images/makerplot_2.png">
+
+<img src="../images/makerplot_3.png">
+
+
+</div>
+
+
+
+
+
+
+
+<!-- BUY -->
+
+
+<div class="buy-box">
+
+
+<div class="price">
+€25
+</div>
+
+
+<div class="btn" onclick="buy()">
+
+Buy MakerPlot
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<a class="back" href="../index.html">
+
+← Back to products
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+<footer>
+
+<p>
+Unnecessary Engineering
+<br>
+Creative 3D Printed Machines & Arduino Projects
+</p>
+
+</footer>
+
+
+
+
+
+
+
+<script>
+
+
+const stripe = Stripe(
+"pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9"
+);
+
+
+
+function buy(){
+
+
+fetch("/create-checkout-session", {
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+priceId:"price_1TDqHjAj3QOHBp3qkQgAqe9M"
+
+})
+
+
+})
+
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+stripe.redirectToCheckout({
+
+sessionId:data.id
+
+});
+
+
+});
+
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>
