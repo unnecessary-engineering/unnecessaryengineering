@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MakerPlot - Unnecessary Engineering</title>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<style>
+
+body {
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f0f0f;
+    color:white;
+}
+
+
+header {
+    background:#1a1a1a;
+    text-align:center;
+    padding:40px 20px;
+}
+
+
+header h1 {
+    margin:0;
+    font-size:2.5em;
+}
+
+
+header p {
+    color:#ccc;
+}
+
+
+
+.container {
+
+    max-width:1000px;
+    margin:auto;
+    padding:30px 20px;
+
+}
+
+
+
+.product-image {
+
+    width:100%;
+    max-width:800px;
+    display:block;
+    margin:auto;
+    border-radius:15px;
+
+}
+
+
+
+h2 {
+
+    margin-top:40px;
+    color:#00ffcc;
+
+}
+
+
+
+.description {
+
+    color:#cccccc;
+    font-size:1.1em;
+    line-height:1.7;
+
+}
+
+
+
+.features {
+
+    background:#1a1a1a;
+    border-radius:12px;
+    padding:25px;
+    margin-top:20px;
+
+}
+
+
+.features li {
+
+    margin:10px 0;
+}
+
+
+
+.gallery {
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-top:20px;
+
+}
+
+
+
+.gallery img {
+
+    width:100%;
+    border-radius:12px;
+
+}
+
+
+
+.buy-box {
+
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    margin-top:40px;
+
+}
+
+
+
+.price {
+
+    font-size:2em;
+    margin-bottom:20px;
+
+}
+
+
+
+.btn {
+
+    display:inline-block;
+    padding:15px 35px;
+    background:#00ffcc;
+    color:black;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+
+.btn:hover {
+
+    background:#00e6b8;
+
+}
+
+
+
+.back {
+
+    display:block;
+    margin-top:40px;
+    color:#00ffcc;
+    text-decoration:none;
+    text-align:center;
+
+}
+
+
+
+footer {
+
+    background:#1a1a1a;
+    text-align:center;
+    padding:30px;
+    color:#aaa;
+    margin-top:50px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>MakerPlot</h1>
+
+<p>
+Fully 3D Printable Arduino CNC Plotter DIY KIT
+</p>
+
+</header>
+
+
+
+<div class="container">
+
+
+
+<img class="product-image"
+src="../images/makerplot.png"
+alt="MakerPlot CNC Plotter">
+
+
+
+<h2>Description</h2>
+
+
+<p class="description">
+
+MakerPlot is a fully 3D printable Arduino CNC plotter designed for makers,
+students and electronics enthusiasts.
+
+This DIY kit allows you to build your own desktop drawing machine using
+3D printed parts, Arduino electronics and simple mechanical components.
+
+The project has been designed to be easy to assemble while teaching the
+fundamentals of CNC machines, motion control and digital fabrication.
+
+The download includes all the STL files required to print the complete
+structure of the machine.
+
+</p>
+
+
+
+
+<h2>What's included</h2>
+
+
+<div class="features">
+
+<ul>
+
+<li>Complete STL files for 3D printing</li>
+
+<li>Designed for Arduino control</li>
+
+<li>Mechanical parts optimized for easy printing</li>
+
+<li>Assembly-ready digital files</li>
+
+<li>Suitable for beginners and experienced makers</li>
+
+</ul>
+
+</div>
+
+
+
+
+<h2>What you can create</h2>
+
+
+<p class="description">
+
+With MakerPlot you can experiment with:
+
+<br><br>
+
+✏️ Automatic drawing<br>
+
+📐 CNC programming basics<br>
+
+🔧 Arduino motion control<br>
+
+🖨️ 3D printing and prototyping<br>
+
+🎨 Custom artwork and patterns
+
+</p>
+
+
+
+
+<h2>Gallery</h2>
+
+
+<div class="gallery">
+
+
+<img src="../images/makerplot_1.png"
+alt="MakerPlot assembly">
+
+
+<img src="../images/makerplot_2.png"
+alt="MakerPlot details">
+
+
+<img src="../images/makerplot_3.png"
+alt="MakerPlot project">
+
+
+</div>
+
+
+
+
+<div class="buy-box">
+
+
+<div class="price">
+
+€25
+
+</div>
+
+
+<div class="btn"
+onclick="buy()">
+
+Buy MakerPlot
+
+</div>
+
+
+</div>
+
+
+
+
+<a class="back" href="../index.html">
+
+← Back to products
+
+</a>
+
+
+
+</div>
+
+
+
+
+<footer>
+
+<p>
+Unnecessary Engineering - Creative 3D Printed Machines & Arduino Projects
+</p>
+
+</footer>
+
+
+
+
+
+<script>
+
+
+const stripe = Stripe(
+"pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9"
+);
+
+
+
+function buy(){
+
+
+fetch("/create-checkout-session",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+
+body:JSON.stringify({
+
+priceId:"price_1TDqHjAj3QOHBp3qkQgAqe9M"
+
+})
+
+
+})
+
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+stripe.redirectToCheckout({
+
+sessionId:data.id
+
+});
+
+
+});
+
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>
