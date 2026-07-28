@@ -6,7 +6,24 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "stripe": "^14.0.0"
-  }
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "express-session": "^1.19.0",
+    "sqlite3": "^6.0.1",
+    "stripe": "^14.25.0"
+  },
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unnecessary-engineering/unnecessaryengineering.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/unnecessary-engineering/unnecessaryengineering/issues"
+  },
+  "homepage": "https://github.com/unnecessary-engineering/unnecessaryengineering#readme"
 }

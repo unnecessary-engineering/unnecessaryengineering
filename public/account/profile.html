@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Account - Unnecessary Engineering</title>
+
+
+<style>
+
+body {
+
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f0f0f;
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+.box {
+
+    background:#1a1a1a;
+    padding:40px;
+    border-radius:15px;
+    width:90%;
+    max-width:600px;
+    text-align:center;
+
+}
+
+
+h1 {
+
+    font-size:2.2em;
+    margin-bottom:10px;
+
+}
+
+
+h2 {
+
+    margin-top:40px;
+    color:#00ffcc;
+
+}
+
+
+p {
+
+    color:#cccccc;
+    line-height:1.5;
+
+}
+
+
+
+.purchase {
+
+    background:#0f0f0f;
+    margin-top:20px;
+    padding:20px;
+    border-radius:10px;
+
+}
+
+
+
+.purchase h3 {
+
+    margin-top:0;
+
+}
+
+
+
+.btn {
+
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 25px;
+    background:#00ffcc;
+    color:black;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+
+}
+
+
+
+.btn:hover {
+
+    background:#00e6b8;
+
+}
+
+
+
+.back {
+
+    margin-top:30px;
+    display:block;
+    color:#cccccc;
+    text-decoration:none;
+
+}
+
+
+
+.back:hover {
+
+    color:#00ffcc;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+<div class="box">
+
+
+<h1>
+My Account
+</h1>
+
+
+<p id="username">
+Loading...
+</p>
+
+
+
+<h2>
+Your Purchases
+</h2>
+
+
+
+<div id="purchases">
+
+Loading purchases...
+
+</div>
+
+
+
+<a class="back" href="/">
+← Back to Shop
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+// LOAD USER NAME
+
+fetch("/account/user")
+
+
+.then(res => res.json())
+
+
+.then(data => {
+
+
+    document.getElementById("username").innerHTML =
+
+    "Hello " + data.name + "!";
+
+
+});
+
+
+
+
+
+// LOAD PURCHASES
+
+fetch("/account/purchases")
+
+
+.then(res => res.json())
+
+
+.then(products => {
+
+
+
+    const box = document.getElementById("purchases");
+
+
+
+    if(products.length === 0) {
+
+
+        box.innerHTML =
+
+        "No purchases yet.";
+
+
+        return;
+
+
+    }
+
+
+
+
+
+    box.innerHTML = "";
+
+
+
+
+    products.forEach(product => {
+
+
+
+        box.innerHTML += `
+
+
+        <div class="purchase">
+
+
+            <h3>
+
+            ${product.product_name}
+
+            </h3>
+
+
+            <p>
+
+            Purchase date:
+
+            ${product.purchase_date}
+
+            </p>
+
+
+
+            <a class="btn" href="/download/${product.product_name}">
+Download
+</a>
+
+
+        </div>
+
+
+        `;
+
+
+
+    });
+
+
+
+});
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

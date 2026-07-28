@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,35 +14,38 @@
 
 <style>
 
+
+* {
+    box-sizing:border-box;
+}
+
+
 body {
 
     margin:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     background:#0f0f0f;
     color:white;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
 
 }
-
 
 
 /* HEADER */
 
 header {
 
-    padding:40px 20px 20px;
-    text-align:center;
     background:#1a1a1a;
+    padding:50px 20px 35px;
+    text-align:center;
 
 }
 
 
 header h1 {
 
-    margin-bottom:10px;
-    font-size:2.5em;
+    margin:0;
+    font-size:3em;
+    letter-spacing:1px;
 
 }
 
@@ -49,7 +53,33 @@ header h1 {
 header p {
 
     color:#cccccc;
-    font-size:1.1em;
+    font-size:1.2em;
+    margin-top:15px;
+
+}
+
+
+
+.account-menu {
+
+    margin-top:30px;
+
+}
+
+
+.account-menu a {
+
+    color:#00ffcc;
+    text-decoration:none;
+    font-weight:bold;
+    margin:0 10px;
+
+}
+
+
+.account-menu a:hover {
+
+    color:white;
 
 }
 
@@ -59,40 +89,19 @@ header p {
 
 .grid {
 
+    max-width:1200px;
+    margin:auto;
+
+    padding:50px 25px;
+
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fit,minmax(280px,350px));
+    repeat(auto-fit,minmax(320px,1fr));
 
-    justify-content:center;
-
-    gap:25px;
-
-    padding:30px 20px;
-
-    max-width:1200px;
-
-    width:100%;
-
-    margin:auto;
-
-    flex-grow:1;
+    gap:35px;
 
 }
-
-
-
-
-.product-link {
-
-    text-decoration:none;
-
-    color:white;
-
-    width:100%;
-
-}
-
 
 
 
@@ -100,33 +109,28 @@ header p {
 
     background:#1a1a1a;
 
-    padding:20px;
+    border-radius:18px;
 
-    border-radius:12px;
+    padding:25px;
+
+    text-align:center;
 
     display:flex;
 
     flex-direction:column;
 
-    align-items:center;
-
-    height:100%;
-
-    transition:
-    transform 0.3s,
-    box-shadow 0.3s;
+    transition:0.3s;
 
 }
 
 
 
-
 .card:hover {
 
-    transform:translateY(-5px);
+    transform:translateY(-8px);
 
     box-shadow:
-    0 10px 20px rgba(0,255,204,0.3);
+    0 10px 30px rgba(0,255,204,0.25);
 
 }
 
@@ -136,21 +140,23 @@ header p {
 
     width:100%;
 
-    max-width:500px;
+    height:300px;
 
-    border-radius:10px;
+    object-fit:contain;
 
-    margin:15px 0;
+    border-radius:12px;
+
+    margin-bottom:20px;
 
 }
 
 
 
-.card h3 {
+.card h2 {
 
     margin:10px 0;
 
-    font-size:1.4em;
+    font-size:1.8em;
 
 }
 
@@ -160,13 +166,23 @@ header p {
 
     color:#cccccc;
 
-    text-align:center;
-
-    line-height:1.5;
-
-    font-size:0.95em;
+    line-height:1.6;
 
     flex-grow:1;
+
+}
+
+
+
+.price {
+
+    font-size:1.5em;
+
+    color:#00ffcc;
+
+    margin:20px 0;
+
+    font-weight:bold;
 
 }
 
@@ -176,19 +192,19 @@ header p {
 
 .btn {
 
-    margin-top:20px;
-
-    padding:12px 25px;
-
     background:#00ffcc;
 
     color:black;
 
-    border-radius:8px;
+    padding:14px 30px;
+
+    border-radius:10px;
 
     font-weight:bold;
 
     cursor:pointer;
+
+    display:inline-block;
 
 }
 
@@ -204,23 +220,25 @@ header p {
 
 /* FOOTER */
 
+
 footer {
 
     background:#1a1a1a;
 
     text-align:center;
 
-    padding:40px 20px 20px;
+    padding:40px 20px;
 
     color:#cccccc;
+
+    line-height:1.6;
 
 }
 
 
-
 footer a {
 
-    color:#cccccc;
+    color:#00ffcc;
 
     text-decoration:none;
 
@@ -229,16 +247,15 @@ footer a {
 
 footer a:hover {
 
-    color:#00ffcc;
+    color:white;
 
 }
 
 
-
 </style>
 
-</head>
 
+</head>
 
 
 
@@ -248,13 +265,37 @@ footer a:hover {
 
 <header>
 
+
 <h1>
 Unnecessary Engineering
 </h1>
 
+
 <p>
 Creative 3D Printed Machines & Arduino Projects
 </p>
+
+
+
+<div class="account-menu" id="accountMenu">
+
+
+<a href="/account/login.html">
+Login
+</a>
+
+
+<span>|</span>
+
+
+<a href="/account/register.html">
+Create Account
+</a>
+
+
+</div>
+
+
 
 </header>
 
@@ -262,58 +303,62 @@ Creative 3D Printed Machines & Arduino Projects
 
 
 
-<div class="grid">
+<section class="grid">
 
 
 
-
-
-<!-- ========================= -->
 <!-- MAKERPLOT -->
-<!-- ========================= -->
 
 
 <div class="card">
 
 
-<a href="prodotti/makerplot.html"
-class="product-link">
-
-
-<h3>
+<h2>
 MakerPlot
-</h3>
+</h2>
+
 
 
 <img src="images/makerplot.png"
-alt="MakerPlot CNC Plotter"
-loading="lazy">
+alt="MakerPlot CNC Plotter">
 
 
 
 <p class="description">
 
-Fully 3D Printable Arduino CNC Plotter DIY KIT.
+Fully 3D printable Arduino CNC Plotter DIY KIT.
 
-Includes STL files for all parts, designed for
-hobbyists and makers to assemble their own
-desktop CNC machine.
+Includes STL files for all parts needed to build
+your own desktop CNC machine.
+
+Perfect for makers, engineers and electronics
+enthusiasts.
 
 </p>
 
 
-</a>
+
+<div class="price">
+
+€25
+
+</div>
 
 
 
 <div class="btn"
-onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
 
-Buy - €25
+onclick="buy(
+'price_1TDqHjAj3QOHBp3qkQgAqe9M',
+'MakerPlot'
+)">
+
+Buy Now
 
 </div>
 
 
+
 </div>
 
 
@@ -321,126 +366,63 @@ Buy - €25
 
 
 
-
-
-
-<!-- ========================= -->
 <!-- MAKERPLOT 2.0 -->
-<!-- ========================= -->
 
 
 <div class="card">
 
 
-<a href="prodotti/makerplot 2.0.html"
-class="product-link">
-
-
-<h3>
+<h2>
 MakerPlot 2.0
-</h3>
+</h2>
+
 
 
 <img src="images/makerplot 2.0.png"
-alt="MakerPlot CNC Plotter"
-loading="lazy">
+alt="MakerPlot 2.0">
 
 
 
 <p class="description">
 
-Fully 3D Printable Arduino CNC Plotter DIY KIT.
+The upgraded version of MakerPlot.
 
-Includes STL files for all parts, designed for
-hobbyists and makers to assemble their own
-desktop CNC machine.
-
-</p>
-
-
-</a>
-
-
-
-<div class="btn"
-onclick="buy('price_1TDqHjAj3QOHBp3qkQgAqe9M')">
-
-Buy - €25
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ========================= -->
-<!-- NUOVO PRODOTTO TEMPLATE -->
-<!-- COPIA QUESTO BLOCCO -->
-<!-- ========================= -->
-
-<!--
-
-
-<div class="card">
-
-
-<a href="prodotti/NOMEFILE.html"
-class="product-link">
-
-
-<h3>
-Nome Prodotto
-</h3>
-
-
-<img src="images/NOMEIMMAGINE.png"
-alt="Nome Prodotto"
-loading="lazy">
-
-
-
-<p class="description">
-
-Descrizione breve del prodotto.
+Improved design, new features and enhanced
+3D printable components for a better DIY CNC
+experience.
 
 </p>
 
 
-</a>
+
+<div class="price">
+
+€25
+
+</div>
 
 
 
 <div class="btn"
-onclick="buy('price_STRIPE_ID')">
 
-Buy - €XX
+onclick="buy(
+'price_ID_DEL_PRODOTTO',
+'MakerPlot 2.0'
+)">
+
+Buy Now
+
+</div>
+
+
 
 </div>
 
 
-</div>
-
-
--->
 
 
 
-
-
-
-</div>
+</section>
 
 
 
@@ -451,26 +433,26 @@ Buy - €XX
 <footer>
 
 
-<h4>
+<h3>
 About Me
-</h4>
+</h3>
 
 
 <p>
 
-Hi! I’m an engineer and maker passionate about
-3D printing and Arduino projects.
+Hi! I'm an engineer and maker passionate about
+3D printing, Arduino and DIY machines.
 
-I create digital files for innovative DIY machines,
-puzzles, and tools for makers like you.
+I create digital files for innovative projects
+for makers around the world.
 
 </p>
 
 
 
-<h4>
+<h3>
 Contact
-</h4>
+</h3>
 
 
 <p>
@@ -489,7 +471,7 @@ printpeakscrafts@gmail.com
 
 <p>
 
-Follow me:
+Follow:
 
 <a href="https://www.kickstarter.com/profile/sc96"
 target="_blank">
@@ -497,6 +479,7 @@ target="_blank">
 Kickstarter
 
 </a>
+
 
 |
 
@@ -521,6 +504,7 @@ Instagram
 
 
 
+
 <script>
 
 
@@ -530,7 +514,9 @@ const stripe = Stripe(
 
 
 
-function buy(priceId){
+
+
+function buy(priceId, productName){
 
 
 fetch("/create-checkout-session", {
@@ -550,7 +536,9 @@ headers:{
 
 body:JSON.stringify({
 
-priceId:priceId
+priceId:priceId,
+
+productName:productName
 
 })
 
@@ -578,7 +566,68 @@ sessionId:data.id
 
 
 
+
+
+
+// ACCOUNT MENU
+
+
+fetch("/account/user")
+
+
+.then(res=>{
+
+
+if(!res.ok){
+
+throw new Error();
+
+}
+
+return res.json();
+
+
+})
+
+
+.then(user=>{
+
+
+document.getElementById("accountMenu").innerHTML = `
+
+
+<a href="/account/profile.html">
+
+My Account
+
+</a>
+
+
+<span>|</span>
+
+
+<a href="/logout">
+
+Logout
+
+</a>
+
+
+`;
+
+
+})
+
+.catch(()=>{
+
+
+});
+
+
+
 </script>
+
+
 
 
 
@@ -586,3 +635,4 @@ sessionId:data.id
 </body>
 
 </html>
+```
