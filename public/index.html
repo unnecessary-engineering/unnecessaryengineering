@@ -356,13 +356,9 @@ Perfect for makers and engineers.
 
 
 <div class="btn"
+onclick="startPurchase('price_1TDqHjAj3QOHBp3qkQgAqe9M','MakerPlot')">
 
-onclick="buy(
-'price_1TDqHjAj3QOHBp3qkQgAqe9M',
-'MakerPlot'
-)">
-
-Buy Now
+Buy
 
 </div>
 
@@ -424,17 +420,9 @@ enhanced DIY CNC experience.
 
 
 <div class="btn"
+onclick="startPurchase('price_1Ty7OAAj3QOHBp3qognd6OBQ','MakerPlot 2.0')">
 
-onclick="buy(
-'price_ID_DEL_PRODOTTO',
-'MakerPlot 2.0'
-)">
-
-Buy Now
-
-</div>
-
-
+Buy
 
 </div>
 
@@ -537,6 +525,48 @@ const stripe = Stripe(
 
 
 
+function startPurchase(priceId, productName){
+
+
+fetch("/check-login")
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(!data.loggedIn){
+
+
+alert(
+"You need an account before purchasing. Please login first."
+);
+
+
+window.location.href =
+"account/login.html";
+
+
+return;
+
+
+}
+
+
+buy(priceId, productName);
+
+
+});
+
+
+}
+
+
+
+
+
 function buy(priceId, productName){
 
 
@@ -557,9 +587,12 @@ headers:{
 
 body:JSON.stringify({
 
+
 priceId:priceId,
 
+
 productName:productName
+
 
 })
 

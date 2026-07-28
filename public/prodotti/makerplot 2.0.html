@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,248 +7,239 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MakerPlot - Unnecessary Engineering</title>
+
+<title>
+MakerPlot 2.0 - Advanced Arduino CNC Plotter DIY Kit | 3D Printable STL Files
+</title>
+
+
+<meta name="description" content="
+MakerPlot 2.0 is an improved 3D printable Arduino CNC plotter project.
+Download STL files and build your own advanced desktop CNC drawing machine.
+">
+
+
+<meta name="keywords" content="
+MakerPlot 2.0,
+Arduino CNC plotter,
+DIY CNC machine,
+3D printable machine,
+STL files,
+Arduino maker project
+">
+
 
 <script src="https://js.stripe.com/v3/"></script>
 
 
+
+<script type="application/ld+json">
+
+{
+ "@context":"https://schema.org/",
+ "@type":"Product",
+
+ "name":"MakerPlot 2.0 Arduino CNC Plotter",
+
+ "description":
+"Advanced 3D printable Arduino CNC plotter project with STL files for makers and engineers.",
+
+ "brand":{
+   "@type":"Brand",
+   "name":"Unnecessary Engineering"
+ },
+
+ "offers":{
+   "@type":"Offer",
+   "price":"25",
+   "priceCurrency":"EUR",
+   "availability":"https://schema.org/InStock"
+ }
+
+}
+
+</script>
+
+
+
 <style>
 
-body {
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#0f0f0f;
-    color:white;
-}
 
+body{
 
-/* HEADER */
-
-header {
-
-    background:#1a1a1a;
-    text-align:center;
-    padding:45px 20px;
+margin:0;
+font-family:Arial,sans-serif;
+background:#0f0f0f;
+color:white;
 
 }
 
 
-header h1 {
+header{
 
-    font-size:2.8em;
-    margin:0 0 10px;
-
-}
-
-
-header p {
-
-    color:#cccccc;
-    font-size:1.2em;
+background:#1a1a1a;
+text-align:center;
+padding:45px 20px;
 
 }
 
 
+header h1{
 
-/* MAIN */
+font-size:2.8em;
+margin:0 0 10px;
 
-.container {
+}
 
-    max-width:1000px;
-    margin:auto;
-    padding:30px 20px;
+
+header p{
+
+color:#cccccc;
+font-size:1.2em;
 
 }
 
 
 
-.hero {
+.container{
 
-    width:100%;
-    border-radius:15px;
-    margin-bottom:40px;
-
-}
-
-
-
-h2 {
-
-    color:#00ffcc;
-    margin-top:50px;
+max-width:1000px;
+margin:auto;
+padding:40px 20px;
 
 }
 
 
 
-.text-block {
+.hero{
 
-    margin:30px 0 50px;
-
-}
-
-
-
-.text-block p {
-
-    color:#cccccc;
-    font-size:1.1em;
-    line-height:1.7;
+width:100%;
+border-radius:15px;
+margin-bottom:40px;
 
 }
 
 
 
+h2{
 
-.content-image {
-
-    width:100%;
-    max-width:850px;
-    display:block;
-    margin:35px auto;
-    border-radius:15px;
+color:#00ffcc;
+margin-top:50px;
 
 }
 
 
 
+.text-block p{
 
-/* FEATURES */
-
-
-.features {
-
-    background:#1a1a1a;
-    padding:25px;
-    border-radius:15px;
-
-}
-
-
-.features li {
-
-    color:#cccccc;
-    margin:12px 0;
-    font-size:1.05em;
+color:#cccccc;
+font-size:1.1em;
+line-height:1.7;
 
 }
 
 
 
-/* GALLERY */
+.content-image{
 
-
-.gallery {
-
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-
-}
-
-
-
-.gallery img {
-
-    width:100%;
-    border-radius:12px;
+width:100%;
+max-width:850px;
+display:block;
+margin:35px auto;
+border-radius:15px;
 
 }
 
 
 
-/* BUY BOX */
+.features{
 
-
-.buy-box {
-
-    margin-top:60px;
-    background:#1a1a1a;
-    padding:35px;
-    text-align:center;
-    border-radius:15px;
+background:#1a1a1a;
+padding:25px;
+border-radius:15px;
 
 }
 
 
 
-.price {
+.features li{
 
-    font-size:2.5em;
-    font-weight:bold;
-    margin-bottom:20px;
-
-}
-
-
-
-.btn {
-
-    display:inline-block;
-    background:#00ffcc;
-    color:black;
-    padding:15px 35px;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
-
-}
-
-
-.btn:hover {
-
-    background:#00e6b8;
+color:#cccccc;
+margin:12px 0;
+line-height:1.5;
 
 }
 
 
 
+.buy-box{
 
-.back {
-
-    display:block;
-    text-align:center;
-    margin:40px;
-    color:#00ffcc;
-    text-decoration:none;
-
-}
-
-
-
-/* FOOTER */
-
-
-footer {
-
-    background:#1a1a1a;
-    text-align:center;
-    padding:30px;
-    color:#aaa;
+margin-top:60px;
+background:#1a1a1a;
+padding:35px;
+text-align:center;
+border-radius:15px;
 
 }
 
 
 
-@media(max-width:600px){
+.price{
 
-header h1 {
+font-size:2.5em;
+font-weight:bold;
+margin-bottom:20px;
 
-    font-size:2em;
+}
+
+
+
+.btn{
+
+display:inline-block;
+background:#00ffcc;
+color:black;
+padding:15px 35px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 
 }
 
 
-.container {
 
-    padding:20px;
+.btn:hover{
+
+background:#00e6b8;
 
 }
+
+
+
+.back{
+
+display:block;
+text-align:center;
+margin:40px;
+color:#00ffcc;
+text-decoration:none;
+
+}
+
+
+
+footer{
+
+background:#1a1a1a;
+text-align:center;
+padding:30px;
+color:#aaa;
 
 }
 
 
 </style>
+
 
 </head>
 
@@ -259,13 +251,19 @@ header h1 {
 
 <header>
 
-<h1>MakerPlot</h1>
+
+<h1>
+MakerPlot 2.0
+</h1>
+
 
 <p>
-Fully 3D Printable Arduino CNC Plotter DIY KIT
+Advanced 3D Printable Arduino CNC Plotter DIY KIT
 </p>
 
+
 </header>
+
 
 
 
@@ -274,36 +272,38 @@ Fully 3D Printable Arduino CNC Plotter DIY KIT
 
 
 
-<!-- MAIN IMAGE -->
 
 
 <img class="hero"
+
 src="../images/makerplot 2.0.png"
-alt="MakerPlot CNC Plotter">
+
+alt="MakerPlot 2.0 Arduino CNC plotter 3D printable machine">
 
 
 
 
 
-<!-- INTRO -->
 
 
 <div class="text-block">
 
 
-<h2>Bring CNC technology to your desk</h2>
+<h2>
+The next generation of MakerPlot
+</h2>
 
 
 <p>
 
-MakerPlot is a fully 3D printable Arduino CNC plotter designed for makers,
-students and electronics enthusiasts.
+MakerPlot 2.0 is an improved version of the original MakerPlot project.
 
-This project combines 3D printing, electronics and programming into a
-compact desktop machine that you can build yourself.
+Designed for makers, engineers and electronics enthusiasts,
+this 3D printable Arduino CNC plotter combines mechanical design,
+3D printing and programming into a compact desktop machine.
 
-The goal is simple: create an affordable and educational CNC platform
-that lets anyone experiment with digital fabrication.
+Create drawings, explore CNC motion control and experiment with
+digital fabrication using your own custom-built device.
 
 </p>
 
@@ -314,33 +314,37 @@ that lets anyone experiment with digital fabrication.
 
 
 
+
+
 <img class="content-image"
+
 src="../images/makerplot 2.0_1.png"
-alt="MakerPlot assembly">
+
+alt="MakerPlot 2.0 CNC plotter assembly and 3D printed parts">
 
 
 
 
 
-<!-- BUILD -->
 
 
 <div class="text-block">
 
 
-<h2>Build your own machine</h2>
+<h2>
+Improved design for makers
+</h2>
 
 
 <p>
 
-All mechanical parts are designed to be printed with a standard FDM 3D printer.
+MakerPlot 2.0 focuses on improving the original concept with
+a refined structure and an enhanced building experience.
 
-The design focuses on simplicity, reliability and easy assembly.
+All mechanical components are designed for standard FDM 3D printers.
 
-The downloadable package contains the STL files needed to print the complete
-structure of MakerPlot.
-
-No expensive equipment is required: just print, assemble and start creating.
+The downloadable package gives you the files needed to print,
+assemble and customize your own CNC drawing machine.
 
 </p>
 
@@ -352,53 +356,55 @@ No expensive equipment is required: just print, assemble and start creating.
 
 
 
+
 <img class="content-image"
+
 src="../images/makerplot 2.0_2.png"
-alt="MakerPlot details">
+
+alt="MakerPlot 2.0 Arduino CNC mechanism details">
 
 
 
 
 
 
-<!-- USES -->
+
+<h2>
+Creative possibilities
+</h2>
 
 
-<div class="text-block">
+<div class="features">
 
 
-<h2>What can you create?</h2>
+<ul>
+
+<li>
+Create automatic drawings and patterns
+</li>
+
+<li>
+Experiment with Arduino motion control
+</li>
+
+<li>
+Learn CNC and digital fabrication concepts
+</li>
+
+<li>
+Combine electronics and 3D printing
+</li>
+
+<li>
+Customize your own desktop machine
+</li>
 
 
-<p>
-
-MakerPlot can be used for many creative experiments:
-
-<br><br>
-
-✏️ Automatic drawings and patterns
-
-<br>
-
-🎨 Custom artwork
-
-<br>
-
-🔧 Learning CNC principles
-
-<br>
-
-💻 Arduino motion control experiments
-
-<br>
-
-🖨️ Combining 3D printing and electronics
-
-
-</p>
+</ul>
 
 
 </div>
+
 
 
 
@@ -406,49 +412,20 @@ MakerPlot can be used for many creative experiments:
 
 
 <img class="content-image"
+
 src="../images/makerplot 2.0_3.png"
-alt="MakerPlot final project">
+
+alt="Finished MakerPlot 2.0 CNC plotter project">
 
 
 
 
 
 
-<!-- INCLUDED -->
 
-
-<h2>Digital Package Includes</h2>
-
-
-<div class="features">
-
-
-<ul>
-
-<li>Complete STL files for 3D printing</li>
-
-<li>Complete mechanical design files</li>
-
-<li>Assembly instructions</li>
-
-<li>Arduino compatible design</li>
-
-<li>Future project updates</li>
-
-</ul>
-
-
-</div>
-
-
-
-
-
-
-<!-- REQUIREMENTS -->
-
-
-<h2>What you need</h2>
+<h2>
+Digital Package Includes
+</h2>
 
 
 <div class="features">
@@ -456,15 +433,26 @@ alt="MakerPlot final project">
 
 <ul>
 
-<li>3D printer</li>
+<li>
+Complete STL files for 3D printing
+</li>
 
-<li>Arduino board</li>
+<li>
+Mechanical design files
+</li>
 
-<li>Stepper motors</li>
+<li>
+Assembly instructions
+</li>
 
-<li>Belts and pulleys</li>
+<li>
+Arduino compatible project design
+</li>
 
-<li>Basic screws and hardware</li>
+<li>
+Future updates
+</li>
+
 
 </ul>
 
@@ -477,10 +465,113 @@ alt="MakerPlot final project">
 
 
 
+<h2>
+Requirements
+</h2>
+
+
+<div class="features">
+
+
+<ul>
+
+<li>
+3D printer
+</li>
+
+<li>
+Arduino board
+</li>
+
+<li>
+Stepper motors
+</li>
+
+<li>
+Belts and pulleys
+</li>
+
+<li>
+Basic hardware components
+</li>
+
+
+</ul>
+
+
+</div>
 
 
 
-<!-- BUY -->
+
+
+
+
+<h2>
+Frequently Asked Questions
+</h2>
+
+
+<div class="features">
+
+
+<ul>
+
+
+<li>
+
+<strong>
+Is MakerPlot 2.0 a physical product?
+</strong>
+
+<br>
+
+No. This is a digital download containing STL files and project information.
+
+</li>
+
+
+<br>
+
+
+<li>
+
+<strong>
+What makes MakerPlot 2.0 different?
+</strong>
+
+<br>
+
+MakerPlot 2.0 is an improved version focused on design refinement and maker experience.
+
+</li>
+
+
+<br>
+
+
+<li>
+
+<strong>
+Can beginners build it?
+</strong>
+
+<br>
+
+Yes. Basic 3D printing and electronics knowledge is recommended.
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
 
 
 <div class="buy-box">
@@ -491,9 +582,12 @@ alt="MakerPlot final project">
 </div>
 
 
-<div class="btn" onclick="buy()">
 
-Buy MakerPlot
+<div class="btn"
+
+onclick="startPurchase('price_1Ty7OAAj3QOHBp3qognd6OBQ','MakerPlot 2.0')">
+
+Buy MakerPlot 2.0
 
 </div>
 
@@ -523,11 +617,17 @@ Buy MakerPlot
 
 <footer>
 
+
 <p>
+
 Unnecessary Engineering
+
 <br>
+
 Creative 3D Printed Machines & Arduino Projects
+
 </p>
+
 
 </footer>
 
@@ -541,27 +641,84 @@ Creative 3D Printed Machines & Arduino Projects
 
 
 const stripe = Stripe(
+
 "pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9"
+
 );
 
 
 
-function buy(){
+
+
+function startPurchase(priceId, productName){
+
+
+fetch("/check-login")
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(!data.loggedIn){
+
+
+alert(
+"You need an account before purchasing. Please login first."
+);
+
+
+window.location.href =
+"../account/login.html";
+
+
+return;
+
+
+}
+
+
+buy(priceId, productName);
+
+
+});
+
+
+}
+
+
+
+
+
+
+function buy(priceId, productName){
 
 
 fetch("/create-checkout-session", {
 
+
 method:"POST",
+
 
 headers:{
 
+
 "Content-Type":"application/json"
+
 
 },
 
+
 body:JSON.stringify({
 
-priceId:"price_1TDqHjAj3QOHBp3qkQgAqe9M"
+
+priceId:"price_1Ty7OAAj3QOHBp3qognd6OBQ",
+
+
+productName:"MakerPlot 2.0"
+
 
 })
 
@@ -571,8 +728,10 @@ priceId:"price_1TDqHjAj3QOHBp3qkQgAqe9M"
 
 .then(res=>res.json())
 
+
 .then(data=>{
 
+console.log(data);    
 
 stripe.redirectToCheckout({
 
@@ -594,3 +753,4 @@ sessionId:data.id
 </body>
 
 </html>
+```
