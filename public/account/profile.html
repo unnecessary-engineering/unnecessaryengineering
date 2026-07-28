@@ -14,10 +14,19 @@
 body {
 
     margin:0;
-    font-family:Arial,sans-serif;
-    background:#0f0f0f;
-    color:white;
     min-height:100vh;
+    background:
+    radial-gradient(circle at top left, rgba(0,255,204,0.12), transparent 25%),
+    radial-gradient(circle at top right, rgba(125,211,252,0.10), transparent 25%),
+    #06070b;
+
+    color:white;
+
+    font-family:
+    Inter,
+    Arial,
+    sans-serif;
+
     display:flex;
     justify-content:center;
     align-items:center;
@@ -25,38 +34,79 @@ body {
 }
 
 
-.box {
+.account-container {
 
-    background:#1a1a1a;
-    padding:40px;
-    border-radius:15px;
-    width:90%;
-    max-width:600px;
-    text-align:center;
+    width:100%;
+    max-width:900px;
+
+    padding:40px 20px;
 
 }
+
+
+
+.header-card {
+
+    background:rgba(255,255,255,0.05);
+
+    border:
+    1px solid rgba(255,255,255,0.1);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,0.3);
+
+}
+
 
 
 h1 {
 
-    font-size:2.2em;
-    margin-bottom:10px;
+    margin:0;
+
+    font-size:3em;
 
 }
+
 
 
 h2 {
 
-    margin-top:40px;
     color:#00ffcc;
 
+    margin-top:40px;
+
 }
+
 
 
 p {
 
     color:#cccccc;
-    line-height:1.5;
+
+    line-height:1.6;
+
+}
+
+
+
+.profile-card {
+
+
+    background:rgba(255,255,255,0.04);
+
+    border:
+    1px solid rgba(255,255,255,0.1);
+
+    border-radius:30px;
+
+    padding:35px;
+
 
 }
 
@@ -64,10 +114,18 @@ p {
 
 .purchase {
 
-    background:#0f0f0f;
+
+    background:#11151c;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    border-radius:20px;
+
+    padding:25px;
+
     margin-top:20px;
-    padding:20px;
-    border-radius:10px;
+
 
 }
 
@@ -75,7 +133,11 @@ p {
 
 .purchase h3 {
 
+
     margin-top:0;
+
+    color:white;
+
 
 }
 
@@ -83,14 +145,25 @@ p {
 
 .btn {
 
+
     display:inline-block;
+
     margin-top:15px;
-    padding:12px 25px;
+
+    padding:14px 28px;
+
     background:#00ffcc;
+
     color:black;
+
     text-decoration:none;
-    border-radius:8px;
+
+    border-radius:999px;
+
     font-weight:bold;
+
+    transition:0.2s;
+
 
 }
 
@@ -98,7 +171,11 @@ p {
 
 .btn:hover {
 
+
+    transform:translateY(-3px);
+
     background:#00e6b8;
+
 
 }
 
@@ -106,10 +183,15 @@ p {
 
 .back {
 
-    margin-top:30px;
+
     display:block;
+
+    margin-top:35px;
+
     color:#cccccc;
+
     text-decoration:none;
+
 
 }
 
@@ -117,7 +199,9 @@ p {
 
 .back:hover {
 
+
     color:#00ffcc;
+
 
 }
 
@@ -129,11 +213,16 @@ p {
 </head>
 
 
+
 <body>
 
 
 
-<div class="box">
+<div class="account-container">
+
+
+
+<div class="header-card">
 
 
 <h1>
@@ -144,6 +233,15 @@ My Account
 <p id="username">
 Loading...
 </p>
+
+
+</div>
+
+
+
+
+
+<div class="profile-card">
 
 
 
@@ -171,26 +269,26 @@ Loading purchases...
 
 
 
+</div>
+
+
+
 
 
 
 <script>
 
 
-// LOAD USER NAME
-
 fetch("/account/user")
 
-
 .then(res => res.json())
-
 
 .then(data => {
 
 
-    document.getElementById("username").innerHTML =
+document.getElementById("username").innerHTML =
 
-    "Hello " + data.name + "!";
+"Hello " + data.name + "!";
 
 
 });
@@ -199,84 +297,79 @@ fetch("/account/user")
 
 
 
-// LOAD PURCHASES
 
 fetch("/account/purchases")
 
-
 .then(res => res.json())
-
 
 .then(products => {
 
 
 
-    const box = document.getElementById("purchases");
+const box = document.getElementById("purchases");
 
 
 
-    if(products.length === 0) {
+if(products.length === 0){
 
 
-        box.innerHTML =
+box.innerHTML="No purchases yet.";
 
-        "No purchases yet.";
-
-
-        return;
+return;
 
 
-    }
-
+}
 
 
 
 
-    box.innerHTML = "";
+box.innerHTML="";
 
 
 
-
-    products.forEach(product => {
-
-
-
-        box.innerHTML += `
-
-
-        <div class="purchase">
-
-
-            <h3>
-
-            ${product.product_name}
-
-            </h3>
-
-
-            <p>
-
-            Purchase date:
-
-            ${product.purchase_date}
-
-            </p>
+products.forEach(product => {
 
 
 
-            <a class="btn" href="/download/${product.product_name}">
+box.innerHTML += `
+
+
+<div class="purchase">
+
+
+<h3>
+
+${product.product_name}
+
+</h3>
+
+
+<p>
+
+Purchase date:
+
+${product.purchase_date}
+
+</p>
+
+
+
+<a class="btn" href="/download/${product.product_name}">
+
 Download
+
 </a>
 
 
-        </div>
-
-
-        `;
+</div>
 
 
 
-    });
+`;
+
+
+
+});
 
 
 
@@ -285,7 +378,6 @@ Download
 
 
 </script>
-
 
 
 
