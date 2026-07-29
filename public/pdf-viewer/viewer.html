@@ -24,8 +24,28 @@ body{
 .viewer{
     display:flex;
     align-items:center;
-    gap:20px;
+    justify-content:center;
+    gap:15px;
     margin-top:30px;
+    width:100%;
+    overflow:hidden;
+}
+
+@media (max-width:680px){
+
+    .viewer{
+        gap:5px;
+    }
+
+    canvas{
+        width:48%;
+    }
+
+    button{
+        padding:10px 12px;
+        font-size:16px;
+    }
+
 }
 
 canvas{
