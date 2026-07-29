@@ -195,6 +195,7 @@ header h1{
   align-items:center;
   flex-wrap:wrap;
   gap:14px;
+  margin-top:30px;
 }
 
 .btn{
@@ -531,6 +532,16 @@ footer p{
   .purchase-card{
     padding:28px 18px;
   }
+
+  .version-picker{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:480px){
+  .version-picker{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 
@@ -553,11 +564,46 @@ footer p{
         <span>Desktop CNC</span>
       </div>
 
+      <div class="version-picker" id="versionPicker">
+        <label class="version-card active" data-version="a4">
+          <input type="radio" name="printSize" value="a4" checked>
+          <strong>A4</strong>
+          <span>Compact format €25</span>
+          <div class="version-price"></div>
+        </label>
+
+        <label class="version-card" data-version="a3">
+          <input type="radio" name="printSize" value="a3">
+          <strong>A3</strong>
+          <span>Balanced format €30 </span>
+          <div class="version-price"></div>
+       
+        </label>
+
+        <label class="version-card" data-version="a2">
+          <input type="radio" name="printSize" value="a2">
+          <strong>A2</strong>
+          <span>Larger format €35</span>
+          <div class="version-price"></div>
+      
+        </label>
+
+        <label class="version-card" data-version="infinite">
+          <input type="radio" name="printSize" value="infinite">
+          <strong>Infinite</strong>
+          <span>Unlimited format €40</span>
+          <div class="version-price"></div>
+      
+        </label>
+      </div>
+
+      
       <div class="hero-actions">
-        <div class="btn" onclick="startPurchase('price_1Ty7OAAj3QOHBp3qognd6OBQ','MakerPlot 2.0')">
-          Buy MakerPlot 2.0
+        
+        <div class="btn" onclick="startPurchase()">
+              Buy selected version
         </div>
-        <div class="hero-price">€30</div>
+        <div class="hero-price" id="selectedVersionPrice">€25</div>
       </div>
     </div>
 
@@ -693,12 +739,17 @@ footer p{
   </section>
 
   <div class="purchase-card">
-    <div class="price">€30</div>
 
-    <div class="btn" onclick="startPurchase('price_1Ty7OAAj3QOHBp3qognd6OBQ','MakerPlot 2.0')">
-      Buy MakerPlot 2.0
-    </div>
+  <div class="price">
+    Selected version:
+    <span id="purchasePrice">€25</span>
   </div>
+
+  <div class="btn" onclick="startPurchase()">
+    Buy selected version
+  </div>
+
+</div>
 
   <a class="back" href="../index.html">
     ← Back to products
@@ -719,7 +770,55 @@ const stripe = Stripe(
 "pk_test_51TDTbqAj3QOHBp3qYz396XBWHtLv6DFAQguEiucl3cafY6mHGL9shD9Wcwsp2FJjMEztAaRRfmCIOLTFD7w1sqTm00zvw23dV9"
 );
 
-function startPurchase(priceId, productName){
+const versions = {
+  a4: {
+    label:"A4",
+    price:25,
+    stripePrice:"price_1TyRwbAj3QOHBp3q95fVNwU7"
+  },
+
+  a3:{
+    label:"A3",
+    price:30,
+    stripePrice:"price_1TyRuVAj3QOHBp3qAQU26pXo"
+  },
+
+  a2:{
+    label:"A2",
+    price:35,
+    stripePrice:"price_1TyRxkAj3QOHBp3qz2n9Yfsn"
+  },
+
+  infinite:{
+    label:"Infinite",
+    price:40,
+    stripePrice:"price_1TyRy1Aj3QOHBp3quZVvULvB"
+  }
+};
+
+let selectedVersion = "a4";
+
+function updateVersionSelection(versionKey){
+  selectedVersion = versionKey;
+  const version = versions[versionKey];
+
+  document.querySelectorAll(".version-card").forEach(card => {
+    card.classList.toggle("active", card.dataset.version === versionKey);
+  });
+
+  document.getElementById("selectedVersionPrice").textContent = `€${version.price}`;
+  document.getElementById("purchasePrice").textContent = `€${version.price}`;
+}
+
+document.querySelectorAll(".version-card").forEach(card => {
+  card.addEventListener("click", () => {
+    updateVersionSelection(card.dataset.version);
+  });
+});
+
+function startPurchase(){
+  const version = versions[selectedVersion];
+
   fetch("/check-login")
   .then(res=>res.json())
   .then(data=>{
@@ -731,29 +830,47 @@ function startPurchase(priceId, productName){
       "../account/login.html";
       return;
     }
-    buy(priceId, productName);
+    buy(
+ `MakerPlot 2.0 - ${version.label}`,
+ version.stripePrice
+);
   });
 }
 
-function buy(priceId, productName){
+function buy(productName, priceId){
+
   fetch("/create-checkout-session", {
     method:"POST",
     headers:{
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      priceId:"price_1Ty7OAAj3QOHBp3qognd6OBQ",
-      productName:"MakerPlot 2.0"
+      priceId: priceId,
+      productName: productName
     })
   })
   .then(res=>res.json())
   .then(data=>{
-    console.log(data);
-    stripe.redirectToCheckout({
-      sessionId:data.id
-    });
+
+    console.log("STRIPE RESPONSE:", data);
+
+    if(data.id){
+
+      stripe.redirectToCheckout({
+        sessionId:data.id
+      });
+
+    } else {
+
+      console.error(data);
+      alert("Stripe checkout error");
+
+    }
+
   });
 }
+
+updateVersionSelection(selectedVersion);
 </script>
 
 </body>

@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+const fs = require("fs");
+const path = require("path");
 const session = require("express-session");
 
 const db = require('./database/database');
@@ -13,6 +15,47 @@ const isLoggedIn = require("./middleware/authMiddleware");
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+function savePurchase(userId, productName, stripeSessionId, callback) {
+
+    db.get(
+        `
+        SELECT id
+        FROM purchases
+        WHERE user_id = ?
+        AND stripe_session_id = ?
+        `,
+        [userId, stripeSessionId],
+        (err, existingPurchase) => {
+
+            if(err){
+                return callback(err);
+            }
+
+            if(existingPurchase){
+                return callback(null, false);
+            }
+
+            db.run(
+                `
+                INSERT INTO purchases
+                (
+                    user_id,
+                    product_name,
+                    stripe_session_id
+                )
+
+                VALUES (?, ?, ?)
+                `,
+                [userId, productName, stripeSessionId],
+                function(insertErr){
+                    callback(insertErr, true);
+                }
+            );
+
+        }
+    );
+
+}
 
 // =========================
 // SESSION
@@ -78,29 +121,11 @@ app.post(
 
 
 
-            db.run(
-
-                `
-                INSERT INTO purchases
-                (
-                    user_id,
-                    product_name,
-                    stripe_session_id
-                )
-
-                VALUES (?, ?, ?)
-                `,
-
-
-                [
-                    userId,
-                    productName,
-                    stripeSessionId
-                ],
-
-
+            savePurchase(
+                userId,
+                productName,
+                stripeSessionId,
                 function(err){
-
 
                     if(err){
 
@@ -111,17 +136,13 @@ app.post(
 
                     } else {
 
-
                         console.log(
                             "Purchase saved!"
                         );
 
-
                     }
 
-
                 }
-
             );
 
 
@@ -178,6 +199,34 @@ app.post('/create-checkout-session', async (req, res) => {
 
     try {
 
+        const lineItems = [];
+
+        if(req.body.priceId){
+
+            lineItems.push({
+                price: req.body.priceId,
+                quantity: 1
+            });
+
+        } else if(req.body.amount){
+
+            lineItems.push({
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: req.body.productName || 'Product'
+                    },
+                    unit_amount: Math.round(req.body.amount * 100)
+                },
+                quantity: 1
+            });
+
+        } else {
+            return res.status(400).json({
+                error: 'Missing checkout price'
+            });
+        }
+
 
         const checkoutSession = await stripe.checkout.sessions.create({
 
@@ -185,17 +234,7 @@ app.post('/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
 
 
-            line_items: [
-
-                {
-
-                    price: req.body.priceId,
-
-                    quantity: 1
-
-                }
-
-            ],
+            line_items: lineItems,
 
 
             mode: 'payment',
@@ -213,7 +252,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
             success_url:
-            `${req.headers.origin}/success.html`,
+            `${req.headers.origin}/success.html?session_id={CHECKOUT_SESSION_ID}`,
 
 
 
@@ -334,6 +373,104 @@ app.get("/account/user", isLoggedIn, (req,res)=>{
 
 });
 
+app.post("/account/complete-purchase", isLoggedIn, async (req, res) => {
+
+    const { sessionId } = req.body;
+
+    if(!sessionId){
+        return res.status(400).json({
+            error:"Missing checkout session id"
+        });
+    }
+
+    try {
+
+        const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
+
+        if(checkoutSession.payment_status !== "paid" && checkoutSession.status !== "complete"){
+            return res.status(400).json({
+                error:"Payment not completed"
+            });
+        }
+
+        const userId = req.session.user.id;
+        const productName = checkoutSession.metadata?.productName || "Unknown";
+
+        savePurchase(userId, productName, sessionId, (err) => {
+
+            if(err){
+                return res.status(500).json({
+                    error:"Database error"
+                });
+            }
+
+            res.json({
+                success:true
+            });
+
+        });
+
+    } catch(error) {
+
+        console.log("COMPLETE PURCHASE ERROR:", error);
+
+        res.status(500).json({
+            error:error.message
+        });
+
+    }
+
+});
+
+app.post("/account/complete-purchase", isLoggedIn, async (req, res) => {
+
+    const { sessionId } = req.body;
+
+    if(!sessionId){
+        return res.status(400).json({
+            error:"Missing checkout session id"
+        });
+    }
+
+    try {
+
+        const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
+
+        if(checkoutSession.payment_status !== "paid" && checkoutSession.status !== "complete"){
+            return res.status(400).json({
+                error:"Payment not completed"
+            });
+        }
+
+        const userId = req.session.user.id;
+        const productName = checkoutSession.metadata?.productName || "Unknown";
+
+        savePurchase(userId, productName, sessionId, (err) => {
+
+            if(err){
+                return res.status(500).json({
+                    error:"Database error"
+                });
+            }
+
+            res.json({
+                success:true
+            });
+
+        });
+
+    } catch(error) {
+
+        console.log("COMPLETE PURCHASE ERROR:", error);
+
+        res.status(500).json({
+            error:error.message
+        });
+
+    }
+
+});
+
 app.get("/account/purchases", isLoggedIn, (req,res)=>{
 
 
@@ -384,6 +521,12 @@ app.get("/download/:product", isLoggedIn, (req,res)=>{
 
 
     const product = req.params.product;
+    const downloadFiles = {
+        "MakerPlot": "MakerPlot.zip",
+        "MakerPlot 2.0": "MakerPlot.zip"
+    };
+    const fileName = downloadFiles[product] || `${product}.zip`;
+    const filePath = path.join(__dirname, "private_downloads", fileName);
 
 
     db.get(

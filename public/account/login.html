@@ -14,10 +14,19 @@
 body {
 
     margin:0;
-    font-family:Arial,sans-serif;
-    background:#0f0f0f;
-    color:white;
     min-height:100vh;
+    background:
+    radial-gradient(circle at top left, rgba(0,255,204,0.12), transparent 25%),
+    radial-gradient(circle at top right, rgba(125,211,252,0.10), transparent 25%),
+    #06070b;
+
+    color:white;
+
+    font-family:
+    Inter,
+    Arial,
+    sans-serif;
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -27,17 +36,19 @@ body {
 
 .container {
 
-    background:#1a1a1a;
+    background:rgba(255,255,255,0.05);
 
     width:90%;
     max-width:420px;
 
     padding:40px;
 
-    border-radius:12px;
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,0.1);
 
     box-shadow:
-    0 10px 20px rgba(0,255,204,0.2);
+    0 30px 80px rgba(0,0,0,0.3);
 
     text-align:center;
 
@@ -49,6 +60,7 @@ h1 {
     font-size:2em;
 
     margin-bottom:10px;
+    color:white;
 
 }
 
@@ -72,11 +84,11 @@ input {
 
     margin-bottom:15px;
 
-    border-radius:8px;
+    border-radius:999px;
 
-    border:none;
+    border:1px solid rgba(255,255,255,0.12);
 
-    background:#2a2a2a;
+    background:rgba(255,255,255,0.06);
 
     color:white;
 
@@ -87,10 +99,11 @@ input {
 
 input:focus {
 
-    outline:2px solid #00ffcc;
+    outline:none;
+    border-color:#00ffcc;
+    box-shadow:0 0 0 2px rgba(0,255,204,0.18);
 
 }
-
 
 
 button {
@@ -105,11 +118,13 @@ button {
 
     border:none;
 
-    border-radius:8px;
+    border-radius:999px;
 
     font-weight:bold;
 
     cursor:pointer;
+
+    transition:0.2s;
 
 }
 
@@ -117,9 +132,16 @@ button {
 button:hover {
 
     background:#00e6b8;
+    transform:translateY(-2px);
 
 }
 
+
+button:active {
+
+    transform:translateY(0);
+
+}
 
 
 a {
@@ -127,6 +149,13 @@ a {
     color:#00ffcc;
 
     text-decoration:none;
+
+}
+
+
+a:hover {
+
+    color:#00e6b8;
 
 }
 
