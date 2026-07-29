@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Manual Viewer</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<style>
+
+body{
+    margin:0;
+    background:#06070b;
+    color:white;
+    font-family:Arial, sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.viewer{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin-top:30px;
+}
+
+canvas{
+    background:white;
+    width:42%;
+    height:auto;
+}
+
+button{
+    padding:12px 20px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    font-size:18px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h2>Assembly Manual</h2>
+
+
+<div class="viewer">
+
+<button onclick="previousPages()">←</button>
+
+<canvas id="page1"></canvas>
+
+<canvas id="page2"></canvas>
+
+<button onclick="nextPages()">→</button>
+
+</div>
+
+
+<script>
+
+let pdfDoc = null;
+let currentPage = 1;
+
+
+const params = new URLSearchParams(window.location.search);
+
+const file = params.get("file") || "makerplot.pdf";
+
+const url = "/manuals/" + file;
+console.log("PDF LOADED:", url);
+
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+
+    pdfDoc = pdf;
+    renderPages();
+
+});
+
+
+function renderPage(pageNumber, canvasId){
+
+    pdfDoc.getPage(pageNumber).then(page=>{
+
+
+        let viewport = page.getViewport({
+            scale:1.3
+        });
+
+
+        let canvas = document.getElementById(canvasId);
+
+        let context = canvas.getContext("2d");
+
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+
+        page.render({
+
+            canvasContext:context,
+            viewport:viewport
+
+        });
+
+
+    });
+
+}
+
+
+
+function renderPages(){
+
+    renderPage(currentPage,"page1");
+
+
+    if(currentPage + 1 <= pdfDoc.numPages){
+
+        renderPage(currentPage+1,"page2");
+
+    }
+
+}
+
+
+
+function nextPages(){
+
+    if(currentPage + 2 <= pdfDoc.numPages){
+
+        currentPage += 2;
+
+        renderPages();
+
+    }
+
+}
+
+
+
+function previousPages(){
+
+    if(currentPage > 1){
+
+        currentPage -= 2;
+
+        renderPages();
+
+    }
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
