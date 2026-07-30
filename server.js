@@ -104,6 +104,11 @@ console.log(req.headers);
 
 try {
 
+    console.log(
+    "WEBHOOK SECRET PRESENT:",
+    process.env.STRIPE_WEBHOOK_SECRET ? "YES" : "NO"
+);
+
     event = stripe.webhooks.constructEvent(
         req.body,
         process.env.STRIPE_WEBHOOK_SECRET
