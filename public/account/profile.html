@@ -330,6 +330,85 @@ box.innerHTML="";
 products.forEach(product => {
 
 
+let downloads = [];
+
+
+if(product.product_name === "MakerPlot 2.0 - Infinite"){
+
+    downloads = [
+        "MakerPlot 2.0 - Infinite",
+        "MakerPlot 2.0 - A2",
+        "MakerPlot 2.0 - A3",
+        "MakerPlot 2.0 - A4"
+    ];
+
+}
+
+
+else if(product.product_name === "MakerPlot 2.0 - A2"){
+
+    downloads = [
+        "MakerPlot 2.0 - A2",
+        "MakerPlot 2.0 - A3",
+        "MakerPlot 2.0 - A4"
+    ];
+
+}
+
+
+else if(product.product_name === "MakerPlot 2.0 - A3"){
+
+    downloads = [
+        "MakerPlot 2.0 - A3",
+        "MakerPlot 2.0 - A4"
+    ];
+
+}
+
+
+else if(product.product_name === "MakerPlot 2.0 - A4"){
+
+    downloads = [
+        "MakerPlot 2.0 - A4"
+    ];
+
+}
+
+
+else {
+
+    downloads = [
+        product.product_name
+    ];
+
+}
+
+
+
+let buttons = "";
+
+
+downloads.forEach(file => {
+
+
+buttons += `
+
+<a class="btn" href="/download/${encodeURIComponent(file)}" download>
+
+Download ${file}
+
+</a>
+
+<br>
+
+`;
+
+
+
+});
+
+
+
 
 box.innerHTML += `
 
@@ -353,12 +432,7 @@ ${product.purchase_date}
 </p>
 
 
-
-<a class="btn" href="/download/${encodeURIComponent(product.product_name)}" download>
-
-Download
-
-</a>
+${buttons}
 
 
 </div>
