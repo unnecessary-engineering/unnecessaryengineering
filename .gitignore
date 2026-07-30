@@ -1,3 +1,4 @@
 node_modules
 .envgit status
 .env
+database/database.sqlite
