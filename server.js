@@ -470,35 +470,55 @@ app.get("/download/:product", isLoggedIn, async (req,res)=>{
 
    const downloadFiles = {
 
-    "MakerPlot": "MakerPlot.zip",
+    "MakerPlot": [
+        "MakerPlot.zip"
+    ],
 
-    "MakerPlot 2.0 - A3": "MakerPlot2-A3.zip",
+    "MakerPlot 2.0 - A4": [
+        "MakerPlot2-A4.zip"
+    ],
 
-    "MakerPlot 2.0 - A4": "MakerPlot2-A4.zip",
+    "MakerPlot 2.0 - A3": [
+        "MakerPlot2-A3.zip",
+        "MakerPlot2-A4.zip"
+    ],
 
-    "MakerPlot 2.0 - A2": "MakerPlot2-A2.zip",
+    "MakerPlot 2.0 - A2": [
+        "MakerPlot2-A2.zip",
+        "MakerPlot2-A3.zip",
+        "MakerPlot2-A4.zip"
+    ],
 
-    "MakerPlot 2.0 - Infinite": "MakerPlot2-Infinite.zip"
+    "MakerPlot 2.0 - Infinite": [
+        "MakerPlot2-Infinite.zip",
+        "MakerPlot2-A2.zip",
+        "MakerPlot2-A3.zip",
+        "MakerPlot2-A4.zip"
+    ]
 
 };
 
-    const fileName = downloadFiles[product];
+   const files = downloadFiles[product];
 
 
-    if(!fileName){
+if(!files){
 
-        return res.status(404).send(
-            "Product not found"
-        );
+    return res.status(404).send(
+        "Product not found"
+    );
 
-    }
+}
 
 
-    const filePath = path.join(
+const filePaths = files.map(file =>
+
+    path.join(
         __dirname,
         "private_downloads",
-        fileName
-    );
+        file
+    )
+
+);
 
 
     try {
