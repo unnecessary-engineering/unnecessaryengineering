@@ -97,7 +97,24 @@ app.post(
     (req,res)=>{
 
 
-        const event = JSON.parse(req.body);
+       let event;
+
+try {
+
+    event = stripe.webhooks.constructEvent(
+        req.body,
+        process.env.STRIPE_WEBHOOK_SECRET
+    );
+
+} catch(err) {
+
+    console.log("WEBHOOK SIGNATURE ERROR:", err.message);
+
+    return res.status(400).send(
+        `Webhook Error: ${err.message}`
+    );
+
+}
 
 
 
