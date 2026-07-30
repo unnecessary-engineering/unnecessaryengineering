@@ -96,6 +96,9 @@ app.post(
     express.raw({type:"application/json"}),
     (req,res)=>{
 
+        console.log("WEBHOOK HEADERS:");
+console.log(req.headers);
+
 
        let event;
 
