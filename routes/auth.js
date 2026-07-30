@@ -95,86 +95,88 @@ router.post("/login", async (req, res) => {
 
 
 
-    db.get(
+    try {
 
-        "SELECT * FROM users WHERE email = ?",
-
-        [email],
-
-        async (err, user) => {
-
-
-            if(err) {
-
-                return res.json({
-
-                    message:"Database error"
-
-                });
-
-            }
+    const result = await db.query(
+        "SELECT * FROM users WHERE email = $1",
+        [
+            email
+        ]
+    );
 
 
-
-            if(!user) {
-
-                return res.json({
-
-                    message:"User not found"
-
-                });
-
-            }
+    const user = result.rows[0];
 
 
+    if(!user) {
 
-            const match = await bcrypt.compare(
+        return res.json({
 
-                password,
+            message:"User not found"
 
-                user.password
+        });
 
-            );
-
-
-
-            if(!match) {
+    }
 
 
-                return res.json({
+    const match = await bcrypt.compare(
 
-                    message:"Wrong password"
+        password,
 
-                });
-
-
-            }
-
-
-
-            req.session.user = {
-
-                id:user.id,
-
-                name:user.name,
-
-                email:user.email
-
-            };
-
-
-
-            res.json({
-
-                message:"Login successful"
-
-            });
-
-
-
-        }
+        user.password
 
     );
+
+
+    if(!match) {
+
+
+        return res.json({
+
+            message:"Wrong password"
+
+        });
+
+
+    }
+
+
+
+    req.session.user = {
+
+        id:user.id,
+
+        name:user.name,
+
+        email:user.email
+
+    };
+
+
+
+    res.json({
+
+        message:"Login successful"
+
+    });
+
+
+
+} catch(err) {
+
+
+    console.log("LOGIN DATABASE ERROR:");
+    console.log(err);
+
+
+    res.json({
+
+        message:"Database error"
+
+    });
+
+
+}
 
 
 });
