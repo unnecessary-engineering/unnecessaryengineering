@@ -463,10 +463,81 @@ WHERE user_id = $1
 
 });
 
+function getAllowedProducts(productName){
+
+    const access = {
+
+        "MakerPlot": [
+            "MakerPlot"
+        ],
+
+        "MakerPlot 2.0 - A4": [
+            "MakerPlot 2.0 - A4"
+        ],
+
+        "MakerPlot 2.0 - A3": [
+            "MakerPlot 2.0 - A3",
+            "MakerPlot 2.0 - A4"
+        ],
+
+        "MakerPlot 2.0 - A2": [
+            "MakerPlot 2.0 - A2",
+            "MakerPlot 2.0 - A3",
+            "MakerPlot 2.0 - A4"
+        ],
+
+        "MakerPlot 2.0 - Infinite": [
+            "MakerPlot 2.0 - Infinite",
+            "MakerPlot 2.0 - A2",
+            "MakerPlot 2.0 - A3",
+            "MakerPlot 2.0 - A4"
+        ]
+
+    };
+
+    return access[productName] || [];
+
+}
+
 app.get("/download/:product", isLoggedIn, async (req,res)=>{
 
     const product = req.params.product;
 
+    const result = await db.query(
+    `
+    SELECT product_name
+    FROM purchases
+    WHERE user_id = $1
+    `,
+    [
+        req.session.user.id
+    ]
+);
+
+
+let allowed = [];
+
+
+result.rows.forEach(purchase => {
+
+    allowed.push(
+        ...getAllowedProducts(
+            purchase.product_name
+        )
+    );
+
+});
+
+
+if(!allowed.includes(product)){
+
+
+    return res.status(403).send(
+        "You don't own this product"
+    );
+
+
+}
 
     const downloadFiles = {
 
