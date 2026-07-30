@@ -420,54 +420,7 @@ app.get("/account/user", isLoggedIn, (req,res)=>{
 
 
 
-app.post("/account/complete-purchase", isLoggedIn, async (req, res) => {
 
-    const { sessionId } = req.body;
-
-    if(!sessionId){
-        return res.status(400).json({
-            error:"Missing checkout session id"
-        });
-    }
-
-    try {
-
-        const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
-
-        if(checkoutSession.payment_status !== "paid" && checkoutSession.status !== "complete"){
-            return res.status(400).json({
-                error:"Payment not completed"
-            });
-        }
-
-        const userId = req.session.user.id;
-        const productName = checkoutSession.metadata?.productName || "Unknown";
-
-        savePurchase(userId, productName, sessionId, (err) => {
-
-            if(err){
-                return res.status(500).json({
-                    error:"Database error"
-                });
-            }
-
-            res.json({
-                success:true
-            });
-
-        });
-
-    } catch(error) {
-
-        console.log("COMPLETE PURCHASE ERROR:", error);
-
-        res.status(500).json({
-            error:error.message
-        });
-
-    }
-
-});
 
 app.get("/account/purchases", isLoggedIn, async (req,res)=>{
 
