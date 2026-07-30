@@ -431,16 +431,14 @@ app.get("/account/purchases", isLoggedIn, async (req,res)=>{
     try {
 
         const result = await db.query(
-    `
-    SELECT *
-    FROM purchases
-    WHERE user_id = $1
-    AND product_name = $2
-    `,
-    [
-        req.session.user.id,
-        product
-    ]
+`
+SELECT *
+FROM purchases
+WHERE user_id = $1
+`,
+[
+    req.session.user.id
+]
 );
 
 
@@ -470,30 +468,64 @@ app.get("/download/:product", isLoggedIn, async (req,res)=>{
     const product = req.params.product;
 
 
-  const downloadFiles = {
+    const downloadFiles = {
 
-    "MakerPlot": "https://drive.google.com/file/d/1sYE1aBgbofJ5ocv-1ulS4qIx78fymrZA/view?usp=sharing",
+        "MakerPlot": "https://drive.google.com/file/d/1sYE1aBgbofJ5ocv-1ulS4qIx78fymrZA/view?usp=sharing",
 
-    "MakerPlot 2.0 - A4": "https://drive.google.com/file/d/1zVgjqkrLgpBUQeevoQKbGGSjZmMtHSZD/view?usp=sharing",
+        "MakerPlot 2.0 - A4": "https://drive.google.com/file/d/1zVgjqkrLgpBUQeevoQKbGGSjZmMtHSZD/view?usp=sharing",
 
-    "MakerPlot 2.0 - A3": "https://drive.google.com/file/d/1a6Q82i5w1YjwfooxymIxXofZYM7JNPy1/view?usp=sharing",
+        "MakerPlot 2.0 - A3": "https://drive.google.com/file/d/1a6Q82i5w1YjwfooxymIxXofZYM7JNPy1/view?usp=sharing",
 
-    "MakerPlot 2.0 - A2": "https://drive.google.com/file/d/10aZDdwBgCO3anBYLhBnrhza7WEban8KV/view?usp=sharing",
+        "MakerPlot 2.0 - A2": "https://drive.google.com/file/d/10aZDdwBgCO3anBYLhBnrhza7WEban8KV/view?usp=sharing",
 
-    "MakerPlot 2.0 - Infinite": "https://drive.google.com/file/d/1YU3sYKxMTVdbFlQB7Aqg3udb8a4JbxR6/view?usp=sharing"
+        "MakerPlot 2.0 - Infinite": "https://drive.google.com/file/d/1YU3sYKxMTVdbFlQB7Aqg3udb8a4JbxR6/view?usp=sharing"
 
-};
-
-   const files = downloadFiles[product];
+    };
 
 
-if(!files){
+    const file = downloadFiles[product];
 
-    return res.status(404).send(
-        "Product not found"
+
+    if(!file){
+
+        return res.status(404).send(
+            "Product not found"
+        );
+
+    }
+
+
+    res.redirect(file);
+
+});
+
+
+
+app.get("/logout",(req,res)=>{
+
+
+    req.session.destroy(()=>{
+
+
+        res.redirect("/");
+
+
+    });
+
+
+});
+
+
+
+app.listen(3000, ()=>{
+
+
+    console.log(
+        "Server running on port 3000"
     );
 
-}
+
+});
 
 
 
