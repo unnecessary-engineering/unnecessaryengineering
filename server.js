@@ -501,31 +501,8 @@ app.get("/download/:product", isLoggedIn, async (req,res)=>{
 
 
 
-app.get("/logout",(req,res)=>{
 
 
-    req.session.destroy(()=>{
-
-
-        res.redirect("/");
-
-
-    });
-
-
-});
-
-
-
-app.listen(3000, ()=>{
-
-
-    console.log(
-        "Server running on port 3000"
-    );
-
-
-});
 
 
 
