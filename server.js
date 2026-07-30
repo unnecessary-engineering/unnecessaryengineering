@@ -15,45 +15,58 @@ const isLoggedIn = require("./middleware/authMiddleware");
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-function savePurchase(userId, productName, stripeSessionId, callback) {
+async function savePurchase(userId, productName, stripeSessionId, callback) {
 
-    db.get(
-        `
-        SELECT id
-        FROM purchases
-        WHERE user_id = ?
-        AND stripe_session_id = ?
-        `,
-        [userId, stripeSessionId],
-        (err, existingPurchase) => {
+    try {
 
-            if(err){
-                return callback(err);
-            }
+        const existing = await db.query(
+            `
+            SELECT id
+            FROM purchases
+            WHERE user_id = $1
+            AND stripe_session_id = $2
+            `,
+            [
+                userId,
+                stripeSessionId
+            ]
+        );
 
-            if(existingPurchase){
-                return callback(null, false);
-            }
 
-            db.run(
-                `
-                INSERT INTO purchases
-                (
-                    user_id,
-                    product_name,
-                    stripe_session_id
-                )
+        if(existing.rows.length > 0){
 
-                VALUES (?, ?, ?)
-                `,
-                [userId, productName, stripeSessionId],
-                function(insertErr){
-                    callback(insertErr, true);
-                }
-            );
+            return callback(null, false);
 
         }
-    );
+
+
+        await db.query(
+            `
+            INSERT INTO purchases
+            (
+                user_id,
+                product_name,
+                stripe_session_id
+            )
+
+            VALUES ($1,$2,$3)
+            `,
+            [
+                userId,
+                productName,
+                stripeSessionId
+            ]
+        );
+
+
+        callback(null,true);
+
+
+    } catch(err){
+
+        callback(err);
+
+    }
 
 }
 
@@ -381,6 +394,8 @@ app.get("/account/user", isLoggedIn, (req,res)=>{
 
 });
 
+
+
 app.post("/account/complete-purchase", isLoggedIn, async (req, res) => {
 
     const { sessionId } = req.body;
@@ -430,171 +445,123 @@ app.post("/account/complete-purchase", isLoggedIn, async (req, res) => {
 
 });
 
-app.post("/account/complete-purchase", isLoggedIn, async (req, res) => {
+app.get("/account/purchases", isLoggedIn, async (req,res)=>{
 
-    const { sessionId } = req.body;
-
-    if(!sessionId){
-        return res.status(400).json({
-            error:"Missing checkout session id"
-        });
-    }
-
-    try {
-
-        const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
-
-        if(checkoutSession.payment_status !== "paid" && checkoutSession.status !== "complete"){
-            return res.status(400).json({
-                error:"Payment not completed"
-            });
-        }
-
-        const userId = req.session.user.id;
-        const productName = checkoutSession.metadata?.productName || "Unknown";
-
-        savePurchase(userId, productName, sessionId, (err) => {
-
-            if(err){
-                return res.status(500).json({
-                    error:"Database error"
-                });
-            }
-
-            res.json({
-                success:true
-            });
-
-        });
-
-    } catch(error) {
-
-        console.log("COMPLETE PURCHASE ERROR:", error);
-
-        res.status(500).json({
-            error:error.message
-        });
-
-    }
-
-});
-
-app.get("/account/purchases", isLoggedIn, (req,res)=>{
-
-
-  console.log("LOGGED USER:");
-
+    console.log("LOGGED USER:");
     console.log(req.session.user);
 
 
-    db.all(
+    try {
 
-        `
-        SELECT *
-        FROM purchases
-        WHERE user_id = ?
-        `,
-
-        [
-            req.session.user.id
-        ],
-
-        (err, rows)=>{
-
-           console.log("PURCHASES FOUND:");
-
-            console.log(rows);
+        const result = await db.query(
+            `
+            SELECT *
+            FROM purchases
+            WHERE user_id = $1
+            `,
+            [
+                req.session.user.id
+            ]
+        );
 
 
-            if(err){
-
-                return res.status(500).json({
-                    error:"Database error"
-                });
-
-            }
+        console.log("PURCHASES FOUND:");
+        console.log(result.rows);
 
 
-            res.json(rows);
+        res.json(result.rows);
 
 
-        }
+    } catch(err){
 
-    );
+        console.log("DATABASE ERROR:");
+        console.log(err);
 
+
+        res.status(500).json({
+            error:"Database error"
+        });
+
+    }
 
 });
 
-app.get("/download/:product", isLoggedIn, (req,res)=>{
-
+app.get("/download/:product", isLoggedIn, async (req,res)=>{
 
     const product = req.params.product;
+
+
     const downloadFiles = {
         "MakerPlot": "MakerPlot.zip",
-        "MakerPlot 2.0": "MakerPlot.zip"
+        "MakerPlot 2.0 - A3": "MakerPlot2.zip",
+        "MakerPlot 2.0 - A4": "MakerPlot2.zip",
+        "MakerPlot 2.0 - A2": "MakerPlot2.zip",
+        "MakerPlot 2.0 - Infinite": "MakerPlot2.zip"
     };
-    const fileName = downloadFiles[product] || `${product}.zip`;
-    const filePath = path.join(__dirname, "private_downloads", fileName);
 
 
-    db.get(
-
-        `
-        SELECT *
-        FROM purchases
-        WHERE user_id = ?
-        AND product_name = ?
-        `,
-
-        [
-
-            req.session.user.id,
-
-            product
-
-        ],
+    const fileName = downloadFiles[product];
 
 
-        (err, purchase)=>{
+    if(!fileName){
+
+        return res.status(404).send(
+            "Product not found"
+        );
+
+    }
 
 
-            if(err){
-
-                return res.status(500).send(
-                    "Database error"
-                );
-
-            }
+    const filePath = path.join(
+        __dirname,
+        "private_downloads",
+        fileName
+    );
 
 
-
-            if(!purchase){
-
-
-                return res.status(403).send(
-                    "You don't own this product"
-                );
+    try {
 
 
-            }
+        const result = await db.query(
+            `
+            SELECT *
+            FROM purchases
+            WHERE user_id = $1
+            AND product_name = $2
+            `,
+            [
+                req.session.user.id,
+                product
+            ]
+        );
 
 
+        if(result.rows.length === 0){
 
-            const filePath =
-            __dirname +
-            "/private_downloads/" +
-            product +
-            ".zip";
-
-
-
-            res.download(filePath);
-
+            return res.status(403).send(
+                "You don't own this product"
+            );
 
         }
 
-    );
 
+        res.download(filePath);
+
+
+
+    } catch(err){
+
+
+        console.log("DOWNLOAD ERROR:");
+        console.log(err);
+
+
+        res.status(500).send(
+            "Database error"
+        );
+
+
+    }
 
 });
 

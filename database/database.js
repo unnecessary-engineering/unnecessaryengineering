@@ -1,14 +1,19 @@
-const sqlite3 = require("sqlite3").verbose();
+const { Pool } = require("pg");
 
-const db = new sqlite3.Database("./database/database.sqlite");
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
+async function initDatabase(){
 
-db.serialize(() => {
+    await pool.query(`
 
-    db.run(`
         CREATE TABLE IF NOT EXISTS users (
 
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
 
             name TEXT NOT NULL,
 
@@ -17,28 +22,41 @@ db.serialize(() => {
             password TEXT NOT NULL
 
         )
+
     `);
 
-    db.run(`
-    CREATE TABLE IF NOT EXISTS purchases (
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+    await pool.query(`
 
-        user_id INTEGER NOT NULL,
+        CREATE TABLE IF NOT EXISTS purchases (
 
-        product_name TEXT NOT NULL,
+            id SERIAL PRIMARY KEY,
 
-        stripe_session_id TEXT,
+            user_id INTEGER NOT NULL,
 
-        purchase_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+            product_name TEXT NOT NULL,
 
-        FOREIGN KEY(user_id) REFERENCES users(id)
+            stripe_session_id TEXT,
 
-    )
-`);
+            purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+            FOREIGN KEY(user_id) REFERENCES users(id)
+
+        )
+
+    `);
+
+}
 
 
+initDatabase()
+.then(()=>{
+    console.log("PostgreSQL database ready");
+})
+.catch(err=>{
+    console.log("DATABASE INIT ERROR:");
+    console.log(err);
 });
 
 
-module.exports = db;
+module.exports = pool;
