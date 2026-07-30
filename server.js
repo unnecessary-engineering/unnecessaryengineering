@@ -431,15 +431,17 @@ app.get("/account/purchases", isLoggedIn, async (req,res)=>{
     try {
 
         const result = await db.query(
-            `
-            SELECT *
-            FROM purchases
-            WHERE user_id = $1
-            `,
-            [
-                req.session.user.id
-            ]
-        );
+    `
+    SELECT *
+    FROM purchases
+    WHERE user_id = $1
+    AND product_name = $2
+    `,
+    [
+        req.session.user.id,
+        product
+    ]
+);
 
 
         console.log("PURCHASES FOUND:");
@@ -468,33 +470,17 @@ app.get("/download/:product", isLoggedIn, async (req,res)=>{
     const product = req.params.product;
 
 
-   const downloadFiles = {
+  const downloadFiles = {
 
-    "MakerPlot": [
-        "MakerPlot.zip"
-    ],
+    "MakerPlot": "https://drive.google.com/file/d/1sYE1aBgbofJ5ocv-1ulS4qIx78fymrZA/view?usp=sharing",
 
-    "MakerPlot 2.0 - A4": [
-        "MakerPlot2-A4.zip"
-    ],
+    "MakerPlot 2.0 - A4": "https://drive.google.com/file/d/1zVgjqkrLgpBUQeevoQKbGGSjZmMtHSZD/view?usp=sharing",
 
-    "MakerPlot 2.0 - A3": [
-        "MakerPlot2-A3.zip",
-        "MakerPlot2-A4.zip"
-    ],
+    "MakerPlot 2.0 - A3": "https://drive.google.com/file/d/1a6Q82i5w1YjwfooxymIxXofZYM7JNPy1/view?usp=sharing",
 
-    "MakerPlot 2.0 - A2": [
-        "MakerPlot2-A2.zip",
-        "MakerPlot2-A3.zip",
-        "MakerPlot2-A4.zip"
-    ],
+    "MakerPlot 2.0 - A2": "https://drive.google.com/file/d/10aZDdwBgCO3anBYLhBnrhza7WEban8KV/view?usp=sharing",
 
-    "MakerPlot 2.0 - Infinite": [
-        "MakerPlot2-Infinite.zip",
-        "MakerPlot2-A2.zip",
-        "MakerPlot2-A3.zip",
-        "MakerPlot2-A4.zip"
-    ]
+    "MakerPlot 2.0 - Infinite": "https://drive.google.com/file/d/1YU3sYKxMTVdbFlQB7Aqg3udb8a4JbxR6/view?usp=sharing"
 
 };
 
@@ -510,62 +496,6 @@ if(!files){
 }
 
 
-const filePaths = files.map(file =>
-
-    path.join(
-        __dirname,
-        "private_downloads",
-        file
-    )
-
-);
-
-
-    try {
-
-
-        const result = await db.query(
-            `
-            SELECT *
-            FROM purchases
-            WHERE user_id = $1
-            AND product_name = $2
-            `,
-            [
-                req.session.user.id,
-                product
-            ]
-        );
-
-
-        if(result.rows.length === 0){
-
-            return res.status(403).send(
-                "You don't own this product"
-            );
-
-        }
-
-
-        res.download(filePath);
-
-
-
-    } catch(err){
-
-
-        console.log("DOWNLOAD ERROR:");
-        console.log(err);
-
-
-        res.status(500).send(
-            "Database error"
-        );
-
-
-    }
-
-});
 
 app.get("/logout",(req,res)=>{
 
