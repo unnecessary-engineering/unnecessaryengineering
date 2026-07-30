@@ -26,49 +26,43 @@ router.post("/register", async (req, res) => {
 
 
 
-        db.run(
-            `
-            INSERT INTO users
-            (name, email, password)
+        try {
 
-            VALUES (?, ?, ?)
-            `,
-            [
-                name,
-                email,
-                hashedPassword
-            ],
+    await db.query(
+        `
+        INSERT INTO users
+        (name, email, password)
 
-            function(err) {
-
-
-                if(err) {
+        VALUES ($1, $2, $3)
+        `,
+        [
+            name,
+            email,
+            hashedPassword
+        ]
+    );
 
 
-                    return res.json({
+    res.json({
 
-                        message:
-                        "Email already registered"
+        message:
+        "Account created successfully!"
 
-                    });
-
-
-                }
+    });
 
 
-
-                res.json({
-
-                    message:
-                    "Account created successfully!"
-
-                });
+} catch(err) {
 
 
+    res.json({
 
-            }
+        message:
+        "Email already registered"
 
-        );
+    });
+
+
+}
 
 
 
