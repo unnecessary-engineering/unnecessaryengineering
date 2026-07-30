@@ -227,6 +227,10 @@ app.post('/create-checkout-session', async (req, res) => {
             });
         }
 
+        console.log("CREATING CHECKOUT");
+console.log(req.body);
+console.log("USER SESSION:");
+console.log(req.session.user);
 
         const checkoutSession = await stripe.checkout.sessions.create({
 
@@ -261,7 +265,11 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
 
-        });
+        }); 
+
+        console.log("STRIPE SESSION CREATED:");
+console.log(checkoutSession.id);
+console.log(checkoutSession.metadata);
 
 
 
