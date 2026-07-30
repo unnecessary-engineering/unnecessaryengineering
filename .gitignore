@@ -2,3 +2,5 @@ node_modules
 .envgit status
 .env
 database/database.sqlite
+private_downloads/
+*.zip
