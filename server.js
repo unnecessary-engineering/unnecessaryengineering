@@ -108,9 +108,10 @@ console.log("BODY LENGTH:", req.body.length);
 console.log("SIGNATURE HEADER:", req.headers["stripe-signature"]);
 
     event = stripe.webhooks.constructEvent(
-        req.body,
-        process.env.STRIPE_WEBHOOK_SECRET
-    );
+    req.body,
+    req.headers["stripe-signature"],
+    process.env.STRIPE_WEBHOOK_SECRET
+);
 
 } catch(err) {
 
