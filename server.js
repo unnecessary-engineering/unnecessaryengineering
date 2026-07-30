@@ -93,21 +93,17 @@ app.use(session({
 
 app.post(
     "/webhook",
-    express.raw({type:"application/json"}),
-    (req,res)=>{
+express.raw({type:"*/*"}),    (req,res)=>{
 
-        console.log("WEBHOOK HEADERS:");
-console.log(req.headers);
+        
+
 
 
        let event;
 
 try {
 
-    console.log(
-    "WEBHOOK SECRET PRESENT:",
-    process.env.STRIPE_WEBHOOK_SECRET ? "YES" : "NO"
-);
+    
 
     event = stripe.webhooks.constructEvent(
         req.body,
