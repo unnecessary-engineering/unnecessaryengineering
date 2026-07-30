@@ -103,7 +103,9 @@ express.raw({type:"*/*"}),    (req,res)=>{
 
 try {
 
-    
+    console.log("BODY TYPE:", typeof req.body);
+console.log("BODY LENGTH:", req.body.length);
+console.log("SIGNATURE HEADER:", req.headers["stripe-signature"]);
 
     event = stripe.webhooks.constructEvent(
         req.body,
