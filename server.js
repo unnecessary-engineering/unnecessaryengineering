@@ -468,14 +468,19 @@ app.get("/download/:product", isLoggedIn, async (req,res)=>{
     const product = req.params.product;
 
 
-    const downloadFiles = {
-        "MakerPlot": "MakerPlot.zip",
-        "MakerPlot 2.0 - A3": "MakerPlot2.zip",
-        "MakerPlot 2.0 - A4": "MakerPlot2.zip",
-        "MakerPlot 2.0 - A2": "MakerPlot2.zip",
-        "MakerPlot 2.0 - Infinite": "MakerPlot2.zip"
-    };
+   const downloadFiles = {
 
+    "MakerPlot": "MakerPlot.zip",
+
+    "MakerPlot 2.0 - A3": "MakerPlot2-A3.zip",
+
+    "MakerPlot 2.0 - A4": "MakerPlot2-A4.zip",
+
+    "MakerPlot 2.0 - A2": "MakerPlot2-A2.zip",
+
+    "MakerPlot 2.0 - Infinite": "MakerPlot2-Infinite.zip"
+
+};
 
     const fileName = downloadFiles[product];
 
